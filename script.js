@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (introDismissed) return;
     introDismissed = true;
     sessionStorage.setItem('jkc_intro_seen', 'true');
+    document.documentElement.classList.remove('intro-active');
     
     if (introScreen) {
       introScreen.classList.add('hide-intro');
@@ -60,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // If already visited during this browser session, skip intro immediately
   if (HAS_SEEN_INTRO) {
     introDismissed = true;
+    document.documentElement.classList.remove('intro-active');
     if (introScreen) {
       introScreen.style.display = 'none';
       introScreen.remove();
@@ -648,12 +650,14 @@ document.addEventListener('DOMContentLoaded', () => {
       mobileNav.style.display = 'flex';
       requestAnimationFrame(() => {
         mobileNav.classList.add('open');
+        mobileMenuBtn.classList.add('active');
       });
       mobileMenuBtn.setAttribute('aria-expanded', 'true');
     }
 
     function closeMobileNav() {
       mobileNav.classList.remove('open');
+      mobileMenuBtn.classList.remove('active');
       setTimeout(() => {
         if (!mobileNav.classList.contains('open')) {
           mobileNav.style.display = 'none';

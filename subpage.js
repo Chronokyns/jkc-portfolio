@@ -32,12 +32,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function openMobileNav() {
       mobileNav.style.display = 'flex';
-      requestAnimationFrame(() => mobileNav.classList.add('open'));
+      requestAnimationFrame(() => {
+        mobileNav.classList.add('open');
+        mobileMenuBtn.classList.add('active');
+      });
       mobileMenuBtn.setAttribute('aria-expanded', 'true');
     }
 
     function closeMobileNav() {
       mobileNav.classList.remove('open');
+      mobileMenuBtn.classList.remove('active');
       setTimeout(() => {
         if (!mobileNav.classList.contains('open')) mobileNav.style.display = 'none';
       }, 280);
