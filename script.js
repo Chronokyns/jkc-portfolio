@@ -621,19 +621,34 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     8. MOBILE NAVIGATION MENU
+     8. MOBILE NAVIGATION MENU (Fade ease animation)
      ========================================================================== */
   if (mobileMenuBtn && mobileNav) {
     mobileMenuBtn.addEventListener('click', () => {
-      mobileNav.classList.toggle('open');
       const isOpen = mobileNav.classList.contains('open');
-      mobileMenuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      if (!isOpen) {
+        mobileNav.style.display = 'flex';
+        // Allow display to take effect before transition starts
+        requestAnimationFrame(() => {
+          mobileNav.classList.add('open');
+        });
+      } else {
+        mobileNav.classList.remove('open');
+        // Hide after transition
+        setTimeout(() => {
+          if (!mobileNav.classList.contains('open')) {
+            mobileNav.style.display = 'none';
+          }
+        }, 280);
+      }
+      mobileMenuBtn.setAttribute('aria-expanded', !isOpen ? 'true' : 'false');
     });
 
-    const mobileNavLinks = mobileNav.querySelectorAll('.mobile-nav-link');
-    mobileNavLinks.forEach((link) => {
+    // Close on nav link click
+    mobileNav.querySelectorAll('.mobile-nav-link').forEach((link) => {
       link.addEventListener('click', () => {
         mobileNav.classList.remove('open');
+        setTimeout(() => { mobileNav.style.display = 'none'; }, 280);
       });
     });
   }
