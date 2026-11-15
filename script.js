@@ -6,9 +6,8 @@
 document.addEventListener('DOMContentLoaded', () => {
   const htmlEl = document.documentElement;
   const introScreen = document.getElementById('intro-screen');
-  const introTimer = document.getElementById('intro-timer');
-  const introProgressBar = document.getElementById('intro-progress-bar');
-  const skipIntroBtn = document.getElementById('skip-intro-btn');
+  const pixelCanvas = document.getElementById('pixel-canvas');
+  const introLogoContainer = document.getElementById('intro-logo-container');
   const themeToggle = document.getElementById('theme-toggle');
   const themeLabel = document.getElementById('theme-label');
   const cursorGlow = document.getElementById('cursor-glow');
@@ -27,10 +26,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const totalCards = cards.length;
 
   /* ==========================================================================
-     1. 5-SECOND INTRO PREVIEW ANIMATION & COUNTDOWN
+     1. 5-SECOND INTRO PREVIEW ANIMATION: PIXEL PARTICLE ASSEMBLY
+     Only "JKC" is shown! Glowing emerald pixels assemble into the letters.
      ========================================================================== */
-  const INTRO_DURATION_MS = 5000;
-  const startTime = performance.now();
   let introDismissed = false;
 
   function dismissIntro() {
@@ -41,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
       introScreen.classList.add('hide-intro');
       setTimeout(() => {
         introScreen.style.display = 'none';
-      }, 800);
+      }, 850);
     }
 
     if (heroPortrait) {
@@ -55,34 +53,127 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function runIntroTimer(now) {
-    if (introDismissed) return;
-    
-    const elapsed = now - startTime;
-    const progress = Math.min(elapsed / INTRO_DURATION_MS, 1);
-    const remainingSeconds = Math.max((INTRO_DURATION_MS - elapsed) / 1000, 0);
-
-    if (introProgressBar) {
-      introProgressBar.style.width = `${progress * 100}%`;
-    }
-    if (introTimer) {
-      introTimer.textContent = `${remainingSeconds.toFixed(1)}s`;
-    }
-
-    if (progress < 1) {
-      requestAnimationFrame(runIntroTimer);
-    } else {
-      dismissIntro();
-    }
+  // Tapping or clicking anywhere skips early
+  if (introScreen) {
+    introScreen.addEventListener('click', dismissIntro);
+    introScreen.addEventListener('touchstart', dismissIntro, { passive: true });
   }
 
-  requestAnimationFrame(runIntroTimer);
+  function startPixelIntro() {
+    if (!pixelCanvas) {
+      setTimeout(dismissIntro, 5000);
+      return;
+    }
 
-  if (skipIntroBtn) {
-    skipIntroBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      dismissIntro();
-    });
+    const ctx = pixelCanvas.getContext('2d');
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    pixelCanvas.width = width * dpr;
+    pixelCanvas.height = height * dpr;
+    ctx.scale(dpr, dpr);
+
+    // Create offscreen text canvas to sample points for "JKC"
+    const offscreen = document.createElement('canvas');
+    const offCtx = offscreen.getContext('2d');
+    offscreen.width = width;
+    offscreen.height = height;
+
+    const fontSize = width < 768 ? Math.min(width * 0.34, 145) : Math.min(width * 0.22, 220);
+    offCtx.fillStyle = '#ffffff';
+    offCtx.font = `900 ${fontSize}px 'Space Grotesk', -apple-system, sans-serif`;
+    offCtx.textAlign = 'center';
+    offCtx.textBaseline = 'middle';
+    offCtx.fillText('JKC', width / 2, height / 2);
+
+    const imgData = offCtx.getImageData(0, 0, width, height).data;
+    const particles = [];
+    const step = width < 768 ? 4 : 5; // Pixel density grid size
+
+    for (let y = 0; y < height; y += step) {
+      for (let x = 0; x < width; x += step) {
+        const index = (y * width + x) * 4;
+        if (imgData[index + 3] > 128) {
+          // Point belongs to "JKC"
+          const angle = Math.random() * Math.PI * 2;
+          const dist = (Math.max(width, height) * 0.62) + Math.random() * 220;
+          particles.push({
+            targetX: x,
+            targetY: y,
+            x: x + Math.cos(angle) * dist,
+            y: y + Math.sin(angle) * dist,
+            startX: x + Math.cos(angle) * dist,
+            startY: y + Math.sin(angle) * dist,
+            size: step - 0.8,
+            delay: Math.random() * 0.45,
+            speed: 0.85 + Math.random() * 0.45,
+            hue: Math.random() > 0.25 ? '#10b981' : '#34d399'
+          });
+        }
+      }
+    }
+
+    const startTime = performance.now();
+    const ASSEMBLY_DURATION = 1950; // Assembles into "JKC" in ~1.95s
+    const TOTAL_INTRO_TIME = 5000;   // Exactly 5.0 seconds total
+
+    function renderPixelIntro(now) {
+      if (introDismissed) return;
+
+      const elapsed = now - startTime;
+      ctx.clearRect(0, 0, width, height);
+
+      // Faint ambient background pulse
+      const pulse = 0.5 + Math.sin(elapsed * 0.003) * 0.2;
+      const grad = ctx.createRadialGradient(width / 2, height / 2, 20, width / 2, height / 2, width * 0.55);
+      grad.addColorStop(0, `rgba(16, 185, 129, ${pulse * 0.18})`);
+      grad.addColorStop(1, 'rgba(3, 4, 5, 0)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, width, height);
+
+      // Determine glow once assembled
+      const isAssembled = elapsed > 2000;
+      if (isAssembled) {
+        ctx.shadowColor = 'rgba(16, 185, 129, 0.75)';
+        ctx.shadowBlur = 10;
+      } else {
+        ctx.shadowColor = 'transparent';
+        ctx.shadowBlur = 0;
+      }
+
+      // Render assembling pixels
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        const localT = Math.max(0, Math.min(1, (elapsed - p.delay * 1000) / (ASSEMBLY_DURATION * p.speed)));
+        
+        // Snappy exponential easing
+        const ease = localT === 1 ? 1 : 1 - Math.pow(2, -10 * localT);
+
+        p.x = p.startX + (p.targetX - p.startX) * ease;
+        p.y = p.startY + (p.targetY - p.startY) * ease;
+
+        ctx.fillStyle = p.hue;
+        ctx.fillRect(p.x, p.y, p.size, p.size);
+      }
+
+      // Reset shadow for next frame
+      ctx.shadowBlur = 0;
+
+      if (elapsed < TOTAL_INTRO_TIME) {
+        requestAnimationFrame(renderPixelIntro);
+      } else {
+        dismissIntro();
+      }
+    }
+
+    requestAnimationFrame(renderPixelIntro);
+  }
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(startPixelIntro);
+  } else {
+    startPixelIntro();
   }
 
   /* ==========================================================================

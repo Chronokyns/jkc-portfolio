@@ -150,220 +150,47 @@ body {
 
 /* ==========================================================================
    5-SECOND INTRO PREVIEW SCREEN
+   ONLY "JKC" VISIBLE: PIXEL PARTICLE ASSEMBLY ANIMATION
    ========================================================================== */
 .intro-screen {
   position: fixed;
   inset: 0;
   z-index: 99999;
-  background-color: #050608;
+  background-color: #030405;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), 
-              visibility 0.75s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
-              filter 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+              visibility 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .intro-screen.hide-intro {
   opacity: 0;
   visibility: hidden;
-  transform: scale(1.04);
-  filter: blur(12px);
+  transform: scale(1.05);
+  filter: blur(14px);
   pointer-events: none;
 }
 
-.intro-bg-grid {
+.intro-bg-ambient {
   position: absolute;
   inset: 0;
-  background-image: 
-    linear-gradient(to right, rgba(16, 185, 129, 0.06) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(16, 185, 129, 0.06) 1px, transparent 1px);
-  background-size: 40px 40px;
-  mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
-  -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+  background: radial-gradient(circle at center, rgba(16, 185, 129, 0.15) 0%, rgba(2, 44, 34, 0.05) 50%, #030405 85%);
   pointer-events: none;
 }
 
-.intro-ambient-glow {
+.pixel-canvas {
   position: absolute;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.24) 0%, rgba(4, 120, 87, 0.08) 45%, transparent 75%);
-  border-radius: 50%;
-  filter: blur(40px);
-  animation: introPulseGlow 3s ease-in-out infinite alternate;
-  pointer-events: none;
-}
-
-@keyframes introPulseGlow {
-  0% { transform: scale(0.85); opacity: 0.6; }
-  100% { transform: scale(1.15); opacity: 1; }
-}
-
-.intro-content {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  max-width: 600px;
-  width: 90%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.intro-hud-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  top: 0;
+  left: 0;
   width: 100%;
-  max-width: 400px;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.12em;
-  color: #64748b;
-  margin-bottom: 1.5rem;
-}
-
-.intro-hud-tag {
-  color: #10b981;
-}
-
-.intro-timer-badge {
-  background: rgba(16, 185, 129, 0.12);
-  border: 1px solid rgba(16, 185, 129, 0.35);
-  color: #34d399;
-  padding: 0.2rem 0.55rem;
-  border-radius: 9999px;
-  font-weight: 700;
-}
-
-.intro-logo-wrapper {
-  position: relative;
-  margin-bottom: 1.25rem;
-  display: inline-block;
-}
-
-.intro-glow-pulse {
-  position: absolute;
-  inset: -15px;
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.45) 0%, transparent 70%);
-  filter: blur(25px);
-  animation: introLogoGlow 2.5s ease-in-out infinite alternate;
-}
-
-@keyframes introLogoGlow {
-  0% { opacity: 0.4; transform: scale(0.9); }
-  100% { opacity: 0.95; transform: scale(1.1); }
-}
-
-.intro-jkc-title {
-  font-family: var(--font-display);
-  font-size: clamp(5.5rem, 18vw, 11rem);
-  font-weight: 900;
-  letter-spacing: -0.04em;
-  color: #10b981;
-  text-shadow: 
-    0 0 25px rgba(16, 185, 129, 0.8),
-    0 0 60px rgba(16, 185, 129, 0.5),
-    0 0 120px rgba(5, 150, 105, 0.35);
-  line-height: 0.9;
-  user-select: none;
-  animation: introTextReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes introTextReveal {
-  0% {
-    opacity: 0;
-    transform: scale(0.8) translateY(20px);
-    letter-spacing: 0.1em;
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-    letter-spacing: -0.04em;
-  }
-}
-
-.intro-meta {
-  margin-bottom: 1.75rem;
-}
-
-.intro-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  color: #f8fafc;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 0.35rem 0.9rem;
-  border-radius: 9999px;
-  margin-bottom: 0.65rem;
-}
-
-.intro-role {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: #94a3b8;
-  letter-spacing: 0.15em;
-}
-
-.intro-progress-container {
-  width: 100%;
-  max-width: 400px;
-  height: 3px;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 2px;
-  overflow: hidden;
-  margin-bottom: 1.25rem;
-  position: relative;
-}
-
-.intro-progress-bar {
-  width: 0%;
   height: 100%;
-  background: linear-gradient(90deg, #059669, #10b981, #34d399);
-  box-shadow: 0 0 12px rgba(16, 185, 129, 0.8);
-  transition: width 0.1s linear;
-}
-
-.intro-hud-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  max-width: 400px;
-}
-
-.intro-subtext {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.1em;
-  color: #64748b;
-}
-
-.skip-intro-btn {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #94a3b8;
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
-  padding: 0.3rem 0.75rem;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.skip-intro-btn:hover {
-  background: rgba(16, 185, 129, 0.15);
-  border-color: #10b981;
-  color: #f8fafc;
+  pointer-events: none;
+  z-index: 2;
 }
 
 /* ==========================================================================
