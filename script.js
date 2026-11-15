@@ -426,17 +426,19 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     5. AI WORKBENCH TILES (Tap / Hover Toggle)
+     5. AI WORKBENCH PANELS (Tap / Hover Toggle)
      ========================================================================== */
-  const aiTiles = document.querySelectorAll('.ai-tile-card');
+  const aiPanels = document.querySelectorAll('.ai-panel-card');
 
-  aiTiles.forEach((tile) => {
-    tile.addEventListener('click', (e) => {
+  aiPanels.forEach((card) => {
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('.ai-external-link')) return;
       // Toggle active color state on mobile tap if not already active
-      aiTiles.forEach((t) => {
-        if (t !== tile) t.classList.remove('active');
-      });
-      tile.classList.toggle('active');
+      const wasActive = card.classList.contains('active');
+      aiPanels.forEach((c) => c.classList.remove('active'));
+      if (!wasActive) {
+        card.classList.add('active');
+      }
     });
   });
 

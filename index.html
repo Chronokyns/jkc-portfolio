@@ -26,7 +26,6 @@
         <span class="intro-timer-badge" id="intro-timer">5.0s</span>
       </div>
 
-      <!-- Glowing JKC Brand Showcase -->
       <div class="intro-logo-wrapper">
         <div class="intro-glow-pulse"></div>
         <h1 class="intro-jkc-title" data-text="JKC">JKC</h1>
@@ -40,7 +39,6 @@
         <p class="intro-role">SOFTWARE DEVELOPER &middot; UI/UX DESIGNER</p>
       </div>
 
-      <!-- 5-Second Progress Line -->
       <div class="intro-progress-container">
         <div class="intro-progress-bar" id="intro-progress-bar"></div>
       </div>
@@ -62,11 +60,10 @@
        ======================================================== -->
   <div id="main-content" class="main-content">
     
-    <!-- HEADER / NAVIGATION (Slim, Straight, Clean) -->
+    <!-- HEADER / NAVIGATION -->
     <header class="site-header" id="site-header">
       <div class="header-inner">
         
-        <!-- Upper Left: JHON KYN -->
         <a href="#hero" class="brand-identity">
           <span class="brand-name">JHON KYN</span>
           <span class="brand-status">
@@ -75,7 +72,6 @@
           </span>
         </a>
 
-        <!-- Desktop Navigation -->
         <nav class="desktop-nav" aria-label="Main Navigation">
           <a href="#about" class="nav-link"><span class="nav-num">01</span> about</a>
           <a href="#projects" class="nav-link"><span class="nav-num">02</span> projects</a>
@@ -84,7 +80,6 @@
           <a href="#contact" class="nav-link"><span class="nav-num">05</span> contact</a>
         </nav>
 
-        <!-- Upper Right: Actions & Theme Toggle Button -->
         <div class="header-actions">
           <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="Toggle dark/white theme" title="Toggle Theme">
             <div class="toggle-track">
@@ -121,7 +116,6 @@
         </div>
       </div>
 
-      <!-- Mobile Dropdown Navigation -->
       <div id="mobile-nav" class="mobile-nav">
         <a href="#about" class="mobile-nav-link"><span class="nav-num">01</span> about</a>
         <a href="#projects" class="mobile-nav-link"><span class="nav-num">02</span> projects</a>
@@ -143,7 +137,6 @@
 
         <div class="hero-container">
           
-          <!-- Top Tagline & Status -->
           <div class="hero-top-meta">
             <span class="hero-terminal-pill">
               <span class="terminal-prompt">$</span> dev.profile --mode=full-stack
@@ -158,13 +151,11 @@
           <!-- THE MAIN HERO PANEL: Large JKC Behind, Face in Front -->
           <div class="hero-stage" id="hero-stage">
             
-            <!-- BACKGROUND TITLE: Prominently Large Glowing JKC -->
             <div class="hero-bg-title-wrapper" aria-hidden="true">
               <div class="hero-title-halo"></div>
               <h2 class="hero-bg-title" id="hero-jkc-text" data-text="JKC">JKC</h2>
             </div>
 
-            <!-- FOREGROUND: Face with 360-degree soft fade on shoulders and bottom -->
             <div class="hero-portrait-container">
               <div class="portrait-glow-backing"></div>
               <img 
@@ -176,7 +167,6 @@
               >
             </div>
 
-            <!-- Floating Info Badges (Desktop) -->
             <div class="floating-badge badge-left">
               <div class="badge-icon">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -207,7 +197,6 @@
 
           </div>
 
-          <!-- Hero Bottom Statement (Justified Text) & CTA -->
           <div class="hero-bottom-actions">
             <p class="hero-subline justified-text">
               Bridging engineering precision with human-centered aesthetic elegance. Translating complex ideas into fluid, accessible, high-performance software.
@@ -548,9 +537,8 @@
 
       <!-- ========================================================
            03 — LANGUAGES & AI STACK
-           Compact Layout: Picture on Top, Name Below!
-           Languages Bounce-Off Each Other (Elastic Collision Physics)
-           AI Stack: Compact B&W to Color with Direct Landing Page Link
+           Part A: Draggable & Bouncing Languages (CSS, JS, React, SQL)
+           Part B: AI Panels (With Real Uploaded Images & 1-Sentence Descriptions)
            ======================================================== -->
       <section id="skills" class="section-block skills-section">
         <div class="section-container">
@@ -628,76 +616,129 @@
             </div>
           </div>
 
-          <!-- PART B: COMPACT AI STACK (Picture on Top, Name Below, B&W to Color, Landing Page Links) -->
+          <!-- PART B: AI WORKBENCH PANELS (Real Uploaded Pictures, 1-Sentence Descriptions & Landing Links) -->
           <div class="ai-stack-wrapper">
-            <div class="ai-tiles-grid">
+            <div class="ai-panels-grid">
               
               <!-- 1. Claude -->
-              <a href="https://claude.ai" target="_blank" rel="noopener noreferrer" class="ai-tile-card" data-ai="claude" title="Claude (Anthropic) - Click to open">
-                <div class="ai-tile-icon-box">
-                  <svg class="ai-svg-logo" viewBox="0 0 24 24" width="38" height="38" fill="currentColor">
-                    <path d="M17.41 3.59c-.39-.39-1.02-.39-1.41 0l-3.3 3.3-3.3-3.3a.996.996 0 1 0-1.41 1.41l3.3 3.3-3.3 3.3a.996.996 0 1 0 1.41 1.41l3.3-3.3 3.3 3.3c.39.39 1.02.39 1.41 0s.39-1.02 0-1.41l-3.3-3.3 3.3-3.3c.39-.39.39-1.02 0-1.41zM5 19h14c.55 0 1-.45 1-1s-.45-1-1-1H5c-.55 0-1 .45-1 1s.45 1 1 1z"/>
-                  </svg>
-                  <span class="ai-arrow-indicator">&rarr;</span>
+              <article class="ai-panel-card" data-ai="claude">
+                <div class="ai-card-top">
+                  <div class="ai-img-frame">
+                    <img src="assets/ai-claude.png" alt="Claude AI Logo" class="ai-brand-img" loading="lazy">
+                  </div>
+                  <div class="ai-title-wrap">
+                    <h3 class="ai-name">Claude</h3>
+                    <span class="ai-provider">Anthropic</span>
+                  </div>
+                  <a href="https://claude.ai" target="_blank" rel="noopener noreferrer" class="ai-external-link" aria-label="Visit Claude Landing Page" title="Visit Claude">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                  </a>
                 </div>
-                <span class="ai-tile-name">Claude</span>
-                <span class="ai-tile-tag">Intense Coding</span>
-              </a>
+                <div class="ai-card-body">
+                  <p class="ai-usage-desc justified-text">
+                    I use Claude for intense coding, deep architectural reasoning, and complex refactoring.
+                  </p>
+                </div>
+              </article>
 
-              <!-- 2. Codex -->
-              <a href="https://openai.com/index/openai-codex/" target="_blank" rel="noopener noreferrer" class="ai-tile-card" data-ai="codex" title="Codex (OpenAI) - Click to open">
-                <div class="ai-tile-icon-box">
-                  <svg class="ai-svg-logo" viewBox="0 0 24 24" width="38" height="38" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="16 18 22 12 16 6"></polyline>
-                    <polyline points="8 6 2 12 8 18"></polyline>
-                    <line x1="12" y1="2" x2="12" y2="22" stroke-dasharray="2 2"></line>
-                  </svg>
-                  <span class="ai-arrow-indicator">&rarr;</span>
+              <!-- 2. ChatGPT -->
+              <article class="ai-panel-card" data-ai="chatgpt">
+                <div class="ai-card-top">
+                  <div class="ai-img-frame">
+                    <img src="assets/ai-chatgpt.png" alt="ChatGPT Logo" class="ai-brand-img" loading="lazy">
+                  </div>
+                  <div class="ai-title-wrap">
+                    <h3 class="ai-name">ChatGPT</h3>
+                    <span class="ai-provider">OpenAI</span>
+                  </div>
+                  <a href="https://chatgpt.com" target="_blank" rel="noopener noreferrer" class="ai-external-link" aria-label="Visit ChatGPT Landing Page" title="Visit ChatGPT">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                  </a>
                 </div>
-                <span class="ai-tile-name">Codex</span>
-                <span class="ai-tile-tag">Code Synthesis</span>
-              </a>
+                <div class="ai-card-body">
+                  <p class="ai-usage-desc justified-text">
+                    I use ChatGPT for ideas, prompt creation, and conversational debugging.
+                  </p>
+                </div>
+              </article>
 
-              <!-- 3. Gemini -->
-              <a href="https://gemini.google.com" target="_blank" rel="noopener noreferrer" class="ai-tile-card" data-ai="gemini" title="Gemini (Google DeepMind) - Click to open">
-                <div class="ai-tile-icon-box">
-                  <svg class="ai-svg-logo" viewBox="0 0 24 24" width="38" height="38" fill="currentColor">
-                    <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/>
-                  </svg>
-                  <span class="ai-arrow-indicator">&rarr;</span>
+              <!-- 3. Codex -->
+              <article class="ai-panel-card" data-ai="codex">
+                <div class="ai-card-top">
+                  <div class="ai-img-frame">
+                    <img src="assets/ai-codex.webp" alt="Codex Logo" class="ai-brand-img" loading="lazy">
+                  </div>
+                  <div class="ai-title-wrap">
+                    <h3 class="ai-name">Codex</h3>
+                    <span class="ai-provider">OpenAI</span>
+                  </div>
+                  <a href="https://openai.com/index/openai-codex/" target="_blank" rel="noopener noreferrer" class="ai-external-link" aria-label="Visit Codex Landing Page" title="Visit Codex">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                  </a>
                 </div>
-                <span class="ai-tile-name">Gemini</span>
-                <span class="ai-tile-tag">Research &amp; Context</span>
-              </a>
+                <div class="ai-card-body">
+                  <p class="ai-usage-desc justified-text">
+                    I use Codex for rapid code generation, terminal automation, and syntax autocompletion.
+                  </p>
+                </div>
+              </article>
 
-              <!-- 4. ChatGPT -->
-              <a href="https://chatgpt.com" target="_blank" rel="noopener noreferrer" class="ai-tile-card" data-ai="chatgpt" title="ChatGPT (OpenAI) - Click to open">
-                <div class="ai-tile-icon-box">
-                  <svg class="ai-svg-logo" viewBox="0 0 24 24" width="38" height="38" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
-                    <circle cx="9" cy="12" r="1" fill="currentColor"/>
-                    <circle cx="12" cy="12" r="1" fill="currentColor"/>
-                    <circle cx="15" cy="12" r="1" fill="currentColor"/>
-                  </svg>
-                  <span class="ai-arrow-indicator">&rarr;</span>
+              <!-- 4. Gemini -->
+              <article class="ai-panel-card" data-ai="gemini">
+                <div class="ai-card-top">
+                  <div class="ai-img-frame">
+                    <img src="assets/ai-gemini.png" alt="Google Gemini Logo" class="ai-brand-img" loading="lazy">
+                  </div>
+                  <div class="ai-title-wrap">
+                    <h3 class="ai-name">Gemini</h3>
+                    <span class="ai-provider">Google DeepMind</span>
+                  </div>
+                  <a href="https://gemini.google.com" target="_blank" rel="noopener noreferrer" class="ai-external-link" aria-label="Visit Gemini Landing Page" title="Visit Gemini">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                  </a>
                 </div>
-                <span class="ai-tile-name">ChatGPT</span>
-                <span class="ai-tile-tag">Ideation &amp; Debug</span>
-              </a>
+                <div class="ai-card-body">
+                  <p class="ai-usage-desc justified-text">
+                    I use Gemini for multimodal analysis, large-context research, and technical documentation.
+                  </p>
+                </div>
+              </article>
 
               <!-- 5. Antigravity -->
-              <a href="https://deepmind.google/technologies/gemini/" target="_blank" rel="noopener noreferrer" class="ai-tile-card" data-ai="antigravity" title="Antigravity (Google DeepMind) - Click to open">
-                <div class="ai-tile-icon-box">
-                  <svg class="ai-svg-logo" viewBox="0 0 24 24" width="38" height="38" fill="none">
-                    <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" stroke-dasharray="3 3"/>
-                    <circle cx="12" cy="12" r="4" fill="currentColor"/>
-                    <path d="M12 3v3M12 18v3M3 12h3M18 12h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                  <span class="ai-arrow-indicator">&rarr;</span>
+              <article class="ai-panel-card" data-ai="antigravity">
+                <div class="ai-card-top">
+                  <div class="ai-img-frame">
+                    <img src="assets/ai-antigravity.png" alt="Google Antigravity Logo" class="ai-brand-img" loading="lazy">
+                  </div>
+                  <div class="ai-title-wrap">
+                    <h3 class="ai-name">Antigravity</h3>
+                    <span class="ai-provider">Google DeepMind</span>
+                  </div>
+                  <a href="https://deepmind.google/technologies/gemini/" target="_blank" rel="noopener noreferrer" class="ai-external-link" aria-label="Visit Antigravity Landing Page" title="Visit Antigravity">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                  </a>
                 </div>
-                <span class="ai-tile-name">Antigravity</span>
-                <span class="ai-tile-tag">Autonomous Agent</span>
-              </a>
+                <div class="ai-card-body">
+                  <p class="ai-usage-desc justified-text">
+                    I use Antigravity as my autonomous agentic workbench for multi-agent workflows and end-to-end builds.
+                  </p>
+                </div>
+              </article>
 
             </div>
           </div>

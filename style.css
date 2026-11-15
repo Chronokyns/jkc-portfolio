@@ -1561,37 +1561,35 @@ html[data-theme="light"] .store-badge-btn {
 }
 
 /* ==========================================================================
-   PART B: COMPACT AI TILES (Picture on Top, Name Below, B&W to Color)
+   PART B: AI DEVELOPMENT WORKBENCH PANELS
+   Actual Uploaded Brand Images: Black & White -> Full Color on Hover/Tap
+   Includes Direct External Landing Links & 1-Sentence Descriptions
    ========================================================================== */
 .ai-stack-wrapper {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
 }
 
-.ai-tiles-grid {
+.ai-panels-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
-  gap: 1.15rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
 }
 
-.ai-tile-card {
+.ai-panel-card {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
-  border-radius: 18px;
-  padding: 1.25rem 0.85rem;
+  border-radius: 20px;
+  padding: 1.45rem;
   box-shadow: var(--card-shadow);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 0.45rem;
-  text-decoration: none;
-  cursor: pointer;
+  gap: 0.85rem;
   transition: all var(--transition-normal);
   position: relative;
   overflow: hidden;
 }
 
-.ai-tile-card::before {
+.ai-panel-card::before {
   content: "";
   position: absolute;
   top: 0;
@@ -1602,144 +1600,152 @@ html[data-theme="light"] .store-badge-btn {
   transition: background var(--transition-fast);
 }
 
-.ai-tile-icon-box {
-  width: 54px;
-  height: 54px;
+.ai-card-top {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.ai-img-frame {
+  width: 50px;
+  height: 50px;
   border-radius: 14px;
   background: var(--bg-tertiary);
+  border: 1px solid var(--border-subtle);
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  border: 1px solid var(--border-subtle);
+  overflow: hidden;
+  padding: 4px;
+  flex-shrink: 0;
   transition: all var(--transition-fast);
 }
 
-.ai-arrow-indicator {
-  position: absolute;
-  top: 3px;
-  right: 5px;
-  font-size: 0.72rem;
-  color: var(--text-muted);
-  opacity: 0;
-  transform: translate(-3px, 3px);
-  transition: all var(--transition-fast);
-}
-
-.ai-svg-logo {
+.ai-brand-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 10px;
   filter: grayscale(100%);
-  opacity: 0.65;
+  opacity: 0.72;
   transition: all var(--transition-fast);
 }
 
-.ai-tile-name {
+.ai-title-wrap {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.ai-name {
   font-family: var(--font-display);
-  font-size: 1rem;
+  font-size: 1.15rem;
   font-weight: 700;
   color: var(--text-primary);
-  margin-top: 0.2rem;
 }
 
-.ai-tile-tag {
+.ai-provider {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.68rem;
   color: var(--text-muted);
-  letter-spacing: 0.02em;
 }
 
-/* Interactive Color States on Hover / Active */
-.ai-tile-card:hover .ai-arrow-indicator,
-.ai-tile-card.active .ai-arrow-indicator {
+.ai-external-link {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.ai-external-link:hover {
+  background: var(--emerald-primary);
+  border-color: var(--emerald-primary);
+  color: #ffffff;
+  transform: translate(2px, -2px);
+  box-shadow: 0 4px 14px rgba(var(--emerald-glow-rgb), 0.4);
+}
+
+.ai-card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.ai-usage-desc {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+/* Hover & Active States: Black & White to Full Color */
+.ai-panel-card:hover .ai-brand-img,
+.ai-panel-card.active .ai-brand-img {
+  filter: grayscale(0%);
   opacity: 1;
-  transform: translate(0, 0);
-  color: var(--text-primary);
+  transform: scale(1.08);
 }
 
-/* Claude */
-.ai-tile-card[data-ai="claude"]:hover,
-.ai-tile-card[data-ai="claude"].active {
+.ai-panel-card:hover .ai-img-frame,
+.ai-panel-card.active .ai-img-frame {
+  border-color: var(--border-highlight);
+  background: var(--bg-card);
+}
+
+/* 1. Claude */
+.ai-panel-card[data-ai="claude"]:hover,
+.ai-panel-card[data-ai="claude"].active {
   border-color: rgba(217, 119, 87, 0.5);
-  box-shadow: 0 10px 25px rgba(217, 119, 87, 0.22);
-  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(217, 119, 87, 0.2);
+  transform: translateY(-2px);
 }
-.ai-tile-card[data-ai="claude"]:hover::before,
-.ai-tile-card[data-ai="claude"].active::before { background: #d97757; }
-.ai-tile-card[data-ai="claude"]:hover .ai-svg-logo,
-.ai-tile-card[data-ai="claude"].active .ai-svg-logo {
-  filter: grayscale(0%);
-  opacity: 1;
-  color: #d97757;
-  transform: scale(1.1);
-}
+.ai-panel-card[data-ai="claude"]:hover::before,
+.ai-panel-card[data-ai="claude"].active::before { background: #d97757; }
 
-/* Codex */
-.ai-tile-card[data-ai="codex"]:hover,
-.ai-tile-card[data-ai="codex"].active {
-  border-color: rgba(0, 229, 255, 0.5);
-  box-shadow: 0 10px 25px rgba(0, 229, 255, 0.22);
-  transform: translateY(-3px);
-}
-.ai-tile-card[data-ai="codex"]:hover::before,
-.ai-tile-card[data-ai="codex"].active::before { background: #00e5ff; }
-.ai-tile-card[data-ai="codex"]:hover .ai-svg-logo,
-.ai-tile-card[data-ai="codex"].active .ai-svg-logo {
-  filter: grayscale(0%);
-  opacity: 1;
-  stroke: #00e5ff;
-  transform: scale(1.1);
-}
-
-/* Gemini */
-.ai-tile-card[data-ai="gemini"]:hover,
-.ai-tile-card[data-ai="gemini"].active {
-  border-color: rgba(147, 112, 219, 0.5);
-  box-shadow: 0 10px 25px rgba(147, 112, 219, 0.22);
-  transform: translateY(-3px);
-}
-.ai-tile-card[data-ai="gemini"]:hover::before,
-.ai-tile-card[data-ai="gemini"].active::before { background: linear-gradient(90deg, #4285f4, #9370db); }
-.ai-tile-card[data-ai="gemini"]:hover .ai-svg-logo,
-.ai-tile-card[data-ai="gemini"].active .ai-svg-logo {
-  filter: grayscale(0%);
-  opacity: 1;
-  color: #8ab4f8;
-  transform: scale(1.1);
-}
-
-/* ChatGPT */
-.ai-tile-card[data-ai="chatgpt"]:hover,
-.ai-tile-card[data-ai="chatgpt"].active {
+/* 2. ChatGPT */
+.ai-panel-card[data-ai="chatgpt"]:hover,
+.ai-panel-card[data-ai="chatgpt"].active {
   border-color: rgba(16, 163, 127, 0.5);
-  box-shadow: 0 10px 25px rgba(16, 163, 127, 0.22);
-  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(16, 163, 127, 0.2);
+  transform: translateY(-2px);
 }
-.ai-tile-card[data-ai="chatgpt"]:hover::before,
-.ai-tile-card[data-ai="chatgpt"].active::before { background: #10a37f; }
-.ai-tile-card[data-ai="chatgpt"]:hover .ai-svg-logo,
-.ai-tile-card[data-ai="chatgpt"].active .ai-svg-logo {
-  filter: grayscale(0%);
-  opacity: 1;
-  stroke: #10a37f;
-  transform: scale(1.1);
-}
+.ai-panel-card[data-ai="chatgpt"]:hover::before,
+.ai-panel-card[data-ai="chatgpt"].active::before { background: #10a37f; }
 
-/* Antigravity */
-.ai-tile-card[data-ai="antigravity"]:hover,
-.ai-tile-card[data-ai="antigravity"].active {
+/* 3. Codex */
+.ai-panel-card[data-ai="codex"]:hover,
+.ai-panel-card[data-ai="codex"].active {
+  border-color: rgba(77, 107, 254, 0.5);
+  box-shadow: 0 10px 25px rgba(77, 107, 254, 0.2);
+  transform: translateY(-2px);
+}
+.ai-panel-card[data-ai="codex"]:hover::before,
+.ai-panel-card[data-ai="codex"].active::before { background: #4d6bfe; }
+
+/* 4. Gemini */
+.ai-panel-card[data-ai="gemini"]:hover,
+.ai-panel-card[data-ai="gemini"].active {
+  border-color: rgba(147, 112, 219, 0.5);
+  box-shadow: 0 10px 25px rgba(147, 112, 219, 0.2);
+  transform: translateY(-2px);
+}
+.ai-panel-card[data-ai="gemini"]:hover::before,
+.ai-panel-card[data-ai="gemini"].active::before { background: linear-gradient(90deg, #4285f4, #9370db); }
+
+/* 5. Antigravity */
+.ai-panel-card[data-ai="antigravity"]:hover,
+.ai-panel-card[data-ai="antigravity"].active {
   border-color: rgba(16, 185, 129, 0.55);
   box-shadow: 0 10px 25px rgba(16, 185, 129, 0.25);
-  transform: translateY(-3px);
+  transform: translateY(-2px);
 }
-.ai-tile-card[data-ai="antigravity"]:hover::before,
-.ai-tile-card[data-ai="antigravity"].active::before { background: #10b981; }
-.ai-tile-card[data-ai="antigravity"]:hover .ai-svg-logo,
-.ai-tile-card[data-ai="antigravity"].active .ai-svg-logo {
-  filter: grayscale(0%);
-  opacity: 1;
-  color: #10b981;
-  stroke: #10b981;
-  transform: scale(1.1);
-}
+.ai-panel-card[data-ai="antigravity"]:hover::before,
+.ai-panel-card[data-ai="antigravity"].active::before { background: #10b981; }
 
 /* ==========================================================================
    04 — EXPERIENCE SECTION
@@ -2302,22 +2308,26 @@ html[data-theme="light"] .store-badge-btn {
     font-size: 0.78rem;
   }
 
-  .ai-tiles-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.85rem;
+  .ai-panels-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
 
-  .ai-tile-card {
-    padding: 1rem 0.65rem;
+  .ai-panel-card {
+    padding: 1.15rem 1rem;
   }
 
-  .ai-tile-icon-box {
-    width: 46px;
-    height: 46px;
+  .ai-img-frame {
+    width: 44px;
+    height: 44px;
   }
 
-  .ai-tile-name {
-    font-size: 0.9rem;
+  .ai-name {
+    font-size: 1.05rem;
+  }
+
+  .ai-usage-desc {
+    font-size: 0.85rem;
   }
 
   .exp-item {
