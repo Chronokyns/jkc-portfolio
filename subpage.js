@@ -28,25 +28,59 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ── Mobile Nav (fade ease) ──
   if (mobileMenuBtn && mobileNav) {
+    const mobileCloseBtn = document.getElementById('mobile-close-btn');
+
+    function openMobileNav() {
+      mobileNav.style.display = 'flex';
+      requestAnimationFrame(() => mobileNav.classList.add('open'));
+      mobileMenuBtn.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeMobileNav() {
+      mobileNav.classList.remove('open');
+      setTimeout(() => {
+        if (!mobileNav.classList.contains('open')) mobileNav.style.display = 'none';
+      }, 280);
+      mobileMenuBtn.setAttribute('aria-expanded', 'false');
+    }
+
     mobileMenuBtn.addEventListener('click', () => {
       const isOpen = mobileNav.classList.contains('open');
-      if (!isOpen) {
-        mobileNav.style.display = 'flex';
-        requestAnimationFrame(() => mobileNav.classList.add('open'));
-      } else {
-        mobileNav.classList.remove('open');
-        setTimeout(() => { if (!mobileNav.classList.contains('open')) mobileNav.style.display = 'none'; }, 280);
-      }
-      mobileMenuBtn.setAttribute('aria-expanded', String(!isOpen));
+      if (!isOpen) openMobileNav();
+      else closeMobileNav();
     });
+
+    if (mobileCloseBtn) {
+      mobileCloseBtn.addEventListener('click', closeMobileNav);
+    }
 
     mobileNav.querySelectorAll('.mobile-nav-link').forEach(link => {
       link.addEventListener('click', () => {
-        mobileNav.classList.remove('open');
-        setTimeout(() => { mobileNav.style.display = 'none'; }, 280);
+        closeMobileNav();
       });
     });
   }
+
+  // ── Page Fade Ease Transition ──
+  document.querySelectorAll('a[href]').forEach((link) => {
+    const href = link.getAttribute('href');
+    if (!href) return;
+    if (href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) return;
+    if (link.target === '_blank') return;
+
+    link.addEventListener('click', (e) => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+      e.preventDefault();
+      document.body.classList.add('page-fading-out');
+      setTimeout(() => {
+        window.location.href = href;
+      }, 240);
+    });
+  });
+
+  window.addEventListener('pageshow', () => {
+    document.body.classList.remove('page-fading-out');
+  });
 
   // ── AI Panel tap-to-reveal on mobile ──
   const aiPanels = document.querySelectorAll('.ai-panel-card');

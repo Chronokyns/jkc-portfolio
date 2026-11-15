@@ -28,17 +28,21 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ==========================================================================
      1. 5-SECOND INTRO PREVIEW ANIMATION: PIXEL PARTICLE ASSEMBLY
      Only "JKC" is shown! Glowing emerald pixels assemble into the letters.
+     Runs strictly ONCE per session so navigating back from other screens does NOT reload it.
      ========================================================================== */
   let introDismissed = false;
+  const HAS_SEEN_INTRO = sessionStorage.getItem('jkc_intro_seen') === 'true';
 
   function dismissIntro() {
     if (introDismissed) return;
     introDismissed = true;
+    sessionStorage.setItem('jkc_intro_seen', 'true');
     
     if (introScreen) {
       introScreen.classList.add('hide-intro');
       setTimeout(() => {
         introScreen.style.display = 'none';
+        introScreen.remove();
       }, 850);
     }
 
@@ -53,11 +57,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // The animation must complete its full duration before transitioning;
-  // early click/touch interruption is disabled so user can watch the full pixel assembly.
-  // introScreen automatically dismisses once TOTAL_INTRO_TIME is reached.
+  // If already visited during this browser session, skip intro immediately
+  if (HAS_SEEN_INTRO) {
+    introDismissed = true;
+    if (introScreen) {
+      introScreen.style.display = 'none';
+      introScreen.remove();
+    }
+    if (heroPortrait) {
+      heroPortrait.style.opacity = '1';
+      heroPortrait.style.transform = 'scale(1)';
+    }
+  }
 
   function startPixelIntro() {
+    if (HAS_SEEN_INTRO) return;
+    sessionStorage.setItem('jkc_intro_seen', 'true');
+
     if (!pixelCanvas) {
       setTimeout(dismissIntro, 5000);
       return;
@@ -168,10 +184,12 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(renderPixelIntro);
   }
 
-  if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(startPixelIntro);
-  } else {
-    startPixelIntro();
+  if (!HAS_SEEN_INTRO) {
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(startPixelIntro);
+    } else {
+      startPixelIntro();
+    }
   }
 
   /* ==========================================================================
@@ -624,37 +642,70 @@ document.addEventListener('DOMContentLoaded', () => {
      8. MOBILE NAVIGATION MENU (Fade ease animation)
      ========================================================================== */
   if (mobileMenuBtn && mobileNav) {
+    const mobileCloseBtn = document.getElementById('mobile-close-btn');
+
+    function openMobileNav() {
+      mobileNav.style.display = 'flex';
+      requestAnimationFrame(() => {
+        mobileNav.classList.add('open');
+      });
+      mobileMenuBtn.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeMobileNav() {
+      mobileNav.classList.remove('open');
+      setTimeout(() => {
+        if (!mobileNav.classList.contains('open')) {
+          mobileNav.style.display = 'none';
+        }
+      }, 280);
+      mobileMenuBtn.setAttribute('aria-expanded', 'false');
+    }
+
     mobileMenuBtn.addEventListener('click', () => {
       const isOpen = mobileNav.classList.contains('open');
-      if (!isOpen) {
-        mobileNav.style.display = 'flex';
-        // Allow display to take effect before transition starts
-        requestAnimationFrame(() => {
-          mobileNav.classList.add('open');
-        });
-      } else {
-        mobileNav.classList.remove('open');
-        // Hide after transition
-        setTimeout(() => {
-          if (!mobileNav.classList.contains('open')) {
-            mobileNav.style.display = 'none';
-          }
-        }, 280);
-      }
-      mobileMenuBtn.setAttribute('aria-expanded', !isOpen ? 'true' : 'false');
+      if (!isOpen) openMobileNav();
+      else closeMobileNav();
     });
+
+    if (mobileCloseBtn) {
+      mobileCloseBtn.addEventListener('click', closeMobileNav);
+    }
 
     // Close on nav link click
     mobileNav.querySelectorAll('.mobile-nav-link').forEach((link) => {
       link.addEventListener('click', () => {
-        mobileNav.classList.remove('open');
-        setTimeout(() => { mobileNav.style.display = 'none'; }, 280);
+        closeMobileNav();
       });
     });
   }
 
   /* ==========================================================================
-     9. CONTACT FORM DISPATCH MOCK
+     9. SMOOTH PAGE FADE TRANSITION
+     Smoothly fades out on page navigation for an effortless transition
+     ========================================================================== */
+  document.querySelectorAll('a[href]').forEach((link) => {
+    const href = link.getAttribute('href');
+    if (!href) return;
+    if (href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) return;
+    if (link.target === '_blank') return;
+
+    link.addEventListener('click', (e) => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+      e.preventDefault();
+      document.body.classList.add('page-fading-out');
+      setTimeout(() => {
+        window.location.href = href;
+      }, 240);
+    });
+  });
+
+  window.addEventListener('pageshow', () => {
+    document.body.classList.remove('page-fading-out');
+  });
+
+  /* ==========================================================================
+     10. CONTACT FORM DISPATCH MOCK
      ========================================================================== */
   window.handleContactSubmit = function() {
     const feedback = document.getElementById('form-feedback');
