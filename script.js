@@ -199,111 +199,111 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ==========================================================================
      3. 3D CAROUSEL CONTROLLER (Swapping Cards on Side Click)
      ========================================================================== */
-  function updateCarousel(newIndex) {
-    currentCardIndex = (newIndex + totalCards) % totalCards;
-    
-    const prevIndex = (currentCardIndex - 1 + totalCards) % totalCards;
-    const nextIndex = (currentCardIndex + 1) % totalCards;
+  if (cards.length > 0) {
+    function updateCarousel(newIndex) {
+      currentCardIndex = (newIndex + totalCards) % totalCards;
+      
+      const prevIndex = (currentCardIndex - 1 + totalCards) % totalCards;
+      const nextIndex = (currentCardIndex + 1) % totalCards;
+
+      cards.forEach((card, idx) => {
+        card.classList.remove('active', 'prev', 'next', 'hidden');
+        card.setAttribute('aria-selected', 'false');
+
+        if (idx === currentCardIndex) {
+          card.classList.add('active');
+          card.setAttribute('aria-selected', 'true');
+          card.setAttribute('tabindex', '0');
+        } else if (idx === prevIndex) {
+          card.classList.add('prev');
+          card.setAttribute('tabindex', '0');
+        } else if (idx === nextIndex) {
+          card.classList.add('next');
+          card.setAttribute('tabindex', '0');
+        } else {
+          card.classList.add('hidden');
+          card.setAttribute('tabindex', '-1');
+        }
+      });
+
+      dots.forEach((dot, idx) => {
+        if (idx === currentCardIndex) {
+          dot.classList.add('active');
+          dot.setAttribute('aria-selected', 'true');
+        } else {
+          dot.classList.remove('active');
+          dot.setAttribute('aria-selected', 'false');
+        }
+      });
+    }
 
     cards.forEach((card, idx) => {
-      card.classList.remove('active', 'prev', 'next', 'hidden');
-      card.setAttribute('aria-selected', 'false');
+      card.addEventListener('click', () => {
+        if (idx !== currentCardIndex) {
+          updateCarousel(idx);
+        }
+      });
 
-      if (idx === currentCardIndex) {
-        card.classList.add('active');
-        card.setAttribute('aria-selected', 'true');
-        card.setAttribute('tabindex', '0');
-      } else if (idx === prevIndex) {
-        card.classList.add('prev');
-        card.setAttribute('tabindex', '0');
-      } else if (idx === nextIndex) {
-        card.classList.add('next');
-        card.setAttribute('tabindex', '0');
-      } else {
-        card.classList.add('hidden');
-        card.setAttribute('tabindex', '-1');
-      }
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          updateCarousel(idx);
+        }
+      });
     });
 
-    dots.forEach((dot, idx) => {
-      if (idx === currentCardIndex) {
-        dot.classList.add('active');
-        dot.setAttribute('aria-selected', 'true');
-      } else {
-        dot.classList.remove('active');
-        dot.setAttribute('aria-selected', 'false');
-      }
-    });
-  }
-
-  cards.forEach((card, idx) => {
-    card.addEventListener('click', () => {
-      if (idx !== currentCardIndex) {
-        updateCarousel(idx);
-      }
-    });
-
-    card.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        updateCarousel(idx);
-      }
-    });
-  });
-
-  if (prevBtn) {
-    prevBtn.addEventListener('click', () => {
-      updateCarousel(currentCardIndex - 1);
-    });
-  }
-
-  if (nextBtn) {
-    nextBtn.addEventListener('click', () => {
-      updateCarousel(currentCardIndex + 1);
-    });
-  }
-
-  dots.forEach((dot) => {
-    dot.addEventListener('click', () => {
-      const targetIndex = parseInt(dot.getAttribute('data-index'), 10);
-      updateCarousel(targetIndex);
-    });
-  });
-
-  const carouselStage = document.getElementById('carousel-stage');
-  if (carouselStage) {
-    carouselStage.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') {
-        e.preventDefault();
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
         updateCarousel(currentCardIndex - 1);
-      } else if (e.key === 'ArrowRight') {
-        e.preventDefault();
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
         updateCarousel(currentCardIndex + 1);
-      }
+      });
+    }
+
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        const targetIndex = parseInt(dot.getAttribute('data-index'), 10);
+        updateCarousel(targetIndex);
+      });
     });
+
+    const carouselStage = document.getElementById('carousel-stage');
+    if (carouselStage) {
+      carouselStage.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          updateCarousel(currentCardIndex - 1);
+        } else if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          updateCarousel(currentCardIndex + 1);
+        }
+      });
+
+      // Mobile Touch Swipe for carousel
+      let touchStartX = 0;
+      let touchEndX = 0;
+
+      carouselStage.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+
+      carouselStage.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        const swipeDistance = touchEndX - touchStartX;
+        if (swipeDistance > 45) {
+          updateCarousel(currentCardIndex - 1);
+        } else if (swipeDistance < -45) {
+          updateCarousel(currentCardIndex + 1);
+        }
+      }, { passive: true });
+    }
+
+    updateCarousel(0);
   }
-
-  // Mobile Touch Swipe for carousel
-  let touchStartX = 0;
-  let touchEndX = 0;
-
-  if (carouselStage) {
-    carouselStage.addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].screenX;
-    }, { passive: true });
-
-    carouselStage.addEventListener('touchend', (e) => {
-      touchEndX = e.changedTouches[0].screenX;
-      const swipeDistance = touchEndX - touchStartX;
-      if (swipeDistance > 45) {
-        updateCarousel(currentCardIndex - 1);
-      } else if (swipeDistance < -45) {
-        updateCarousel(currentCardIndex + 1);
-      }
-    }, { passive: true });
-  }
-
-  updateCarousel(0);
 
   /* ==========================================================================
      4. 2D ELASTIC BOUNCE & COLLISION PHYSICS FOR LANGUAGES

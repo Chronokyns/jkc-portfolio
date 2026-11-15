@@ -43,9 +43,9 @@
         </a>
 
         <nav class="desktop-nav" aria-label="Main Navigation">
-          <a href="#projects" class="nav-link"><span class="nav-num">01</span> projects</a>
-          <a href="#skills" class="nav-link"><span class="nav-num">02</span> skills &amp; ai</a>
-          <a href="#experience" class="nav-link"><span class="nav-num">03</span> experience</a>
+          <a href="projects.html" class="nav-link">projects</a>
+          <a href="stacks.html" class="nav-link">stacks</a>
+          <a href="#experience" class="nav-link">experience</a>
         </nav>
 
         <div class="header-actions">
@@ -86,8 +86,8 @@
 
       <div id="mobile-nav" class="mobile-nav">
         <div class="mobile-nav-links">
-          <a href="#projects" class="mobile-nav-link">Projects</a>
-          <a href="#skills" class="mobile-nav-link">Skills &amp; AI</a>
+          <a href="projects.html" class="mobile-nav-link">Projects</a>
+          <a href="stacks.html" class="mobile-nav-link">Stacks</a>
           <a href="#experience" class="mobile-nav-link">Experience</a>
         </div>
         <div class="mobile-nav-footer">
@@ -206,8 +206,8 @@
               </a>
             </div>
             
-            <a href="#projects" class="hero-scroll-cue" aria-label="Scroll to projects section">
-              <span class="scroll-text">EXPLORE WORK</span>
+            <a href="#experience" class="hero-scroll-cue" aria-label="Scroll to experience section">
+              <span class="scroll-text">EXPERIENCE</span>
               <span class="scroll-arrow">&darr;</span>
             </a>
           </div>
@@ -216,493 +216,52 @@
       </section>
 
       <!-- ========================================================
-           01 — ABOUT anchor (section kept for nav, content moved to hero)
+           01 — DEDICATED SCREENS NAVIGATION (Projects & Stacks)
            ======================================================== -->
-      <section id="about" class="about-anchor-only"></section>
-
-      <!-- ========================================================
-           02 — PROJECTS SECTION: 3D Interactive Carousel
-           ======================================================== -->
-      <section id="projects" class="section-block projects-section">
+      <section class="section-block quick-nav-section">
         <div class="section-container">
-          
-          <div class="section-header">
-            <div class="section-tag-wrap">
-              <span class="section-index">02</span>
-              <span class="section-dash">&mdash;</span>
-              <h2 class="section-heading">projects</h2>
-            </div>
-            <a href="#projects" class="section-action-link" id="view-all-projects">
-              ALL PROJECTS <span class="arrow">&rarr;</span>
+          <div class="quick-nav-grid">
+            <a href="projects.html" class="quick-nav-card">
+              <div class="quick-nav-header">
+                <span class="quick-nav-num">01</span>
+                <span class="quick-nav-arrow">&rarr;</span>
+              </div>
+              <h3 class="quick-nav-title">Projects</h3>
+              <p class="quick-nav-desc">Explore built web applications, developer tools, and digital solutions.</p>
+              <div class="quick-nav-footer">
+                <span class="quick-nav-tag">View projects &rarr;</span>
+              </div>
+            </a>
+
+            <a href="stacks.html" class="quick-nav-card">
+              <div class="quick-nav-header">
+                <span class="quick-nav-num">02</span>
+                <span class="quick-nav-arrow">&rarr;</span>
+              </div>
+              <h3 class="quick-nav-title">Tech Stack</h3>
+              <p class="quick-nav-desc">Frontend frameworks, backend technologies, and AI workbench.</p>
+              <div class="quick-nav-footer">
+                <span class="quick-nav-tag">Explore stacks &rarr;</span>
+              </div>
             </a>
           </div>
-
-          <div class="carousel-outer-wrapper">
-            
-            <div class="carousel-controls-top">
-              <span class="carousel-hint">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polyline points="15 18 9 12 15 6"></polyline>
-                </svg>
-                TAP SIDE CARDS TO SWAP FRONT
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polyline points="9 18 15 12 9 6"></polyline>
-                </svg>
-              </span>
-            </div>
-
-            <!-- 3D CAROUSEL TRACK -->
-            <div class="carousel-stage" id="carousel-stage">
-              
-              <!-- PROJECT CARD 1: Tarsi -->
-              <article class="project-card" data-index="0" id="card-0" tabindex="0" role="region" aria-label="Tarsi Budget Tracker Project">
-                <div class="card-glass-frame">
-                  
-                  <div class="card-tags-row">
-                    <span class="card-pill pill-highlight">&lt; #1 FINANCE APP &gt;</span>
-                    <span class="card-pill">APP STORE HIDDEN GEMS</span>
-                    <span class="card-pill">APPS MADE IN THE PHILIPPINES</span>
-                  </div>
-
-                  <div class="card-brand-row">
-                    <div class="app-icon app-icon-emerald">
-                      <svg width="50" height="50" viewBox="0 0 100 100" fill="none">
-                        <rect width="100" height="100" rx="24" fill="#10b981"/>
-                        <circle cx="38" cy="46" r="18" fill="#ffffff"/>
-                        <circle cx="62" cy="46" r="18" fill="#ffffff"/>
-                        <circle cx="36" cy="46" r="9" fill="#047857"/>
-                        <circle cx="64" cy="46" r="9" fill="#047857"/>
-                        <circle cx="33" cy="43" r="3" fill="#ffffff"/>
-                        <circle cx="61" cy="43" r="3" fill="#ffffff"/>
-                        <ellipse cx="50" cy="66" rx="8" ry="4" fill="#047857"/>
-                        <path d="M45 72 Q50 76 55 72" stroke="#047857" stroke-width="2" stroke-linecap="round"/>
-                      </svg>
-                    </div>
-                    <div class="app-title-group">
-                      <h3 class="app-title">Tarsi &mdash; Budget Tracker</h3>
-                      <span class="app-category">FINANCE &middot; ON-DEVICE AI &middot; PRIVACY</span>
-                    </div>
-                  </div>
-
-                  <p class="app-description justified-text">
-                    An offline-first budget &amp; expense tracker powered by on-device AI. Intelligent receipt OCR parsing, zero cloud telemetry, and biometric security wrapped in an ultra-clean minimalist aesthetic.
-                  </p>
-
-                  <div class="card-tech-chips">
-                    <span class="tech-chip">React Native</span>
-                    <span class="tech-chip">TypeScript</span>
-                    <span class="tech-chip">SQLite</span>
-                    <span class="tech-chip">TensorFlow Lite</span>
-                  </div>
-
-                  <div class="store-buttons-row">
-                    <a href="javascript:void(0)" class="store-badge-btn" title="Download on App Store">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 7.15c.66-.8 1.1-1.92.98-3.04-1 .04-2.14.65-2.82 1.44-.59.69-1.12 1.83-.98 2.92 1.12.09 2.18-.55 2.82-1.32z"/>
-                      </svg>
-                      <div class="store-text">
-                        <span class="store-sub">Download on the</span>
-                        <span class="store-name">App Store</span>
-                      </div>
-                    </a>
-
-                    <a href="javascript:void(0)" class="store-badge-btn" title="Get it on Google Play">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M3.609 1.814L13.793 12 3.61 22.186a2.217 2.217 0 0 1-.22-.988V2.802c0-.36.08-.7.22-.988zm11.242 11.243l2.42 2.42-12.038 6.945 9.618-9.365zm2.42-2.42l-2.42 2.42-9.618-9.365 12.038 6.945zm1.097 1.097l3.666 2.116c1.034.597 1.034 1.572 0 2.17l-3.666 2.115-2.09-2.09 2.09-2.311z"/>
-                      </svg>
-                      <div class="store-text">
-                        <span class="store-sub">GET IT ON</span>
-                        <span class="store-name">Google Play</span>
-                      </div>
-                    </a>
-                  </div>
-
-                </div>
-              </article>
-
-              <!-- PROJECT CARD 2: HabitPulse -->
-              <article class="project-card" data-index="1" id="card-1" tabindex="0" role="region" aria-label="HabitPulse Gym Companion Project">
-                <div class="card-glass-frame">
-                  
-                  <div class="card-tags-row">
-                    <span class="card-pill pill-highlight">&lt; FITNESS &amp; HEALTH &gt;</span>
-                    <span class="card-pill">FEATURED ON PRODUCT HUNT</span>
-                    <span class="card-pill">COMPUTER VISION REP COUNTER</span>
-                  </div>
-
-                  <div class="card-brand-row">
-                    <div class="app-icon app-icon-cyan">
-                      <svg width="50" height="50" viewBox="0 0 100 100" fill="none">
-                        <rect width="100" height="100" rx="24" fill="#047857"/>
-                        <circle cx="32" cy="50" r="14" stroke="#ffffff" stroke-width="6"/>
-                        <circle cx="68" cy="50" r="14" stroke="#ffffff" stroke-width="6"/>
-                        <line x1="46" y1="50" x2="54" y2="50" stroke="#ffffff" stroke-width="6" stroke-linecap="round"/>
-                        <path d="M22 50 L34 50 L42 36 L50 64 L58 50 L78 50" stroke="#34d399" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                    </div>
-                    <div class="app-title-group">
-                      <h3 class="app-title">HabitPulse &mdash; Gym Companion</h3>
-                      <span class="app-category">FITNESS &middot; MOTION ANALYSIS &middot; HABITS</span>
-                    </div>
-                  </div>
-
-                  <p class="app-description justified-text">
-                    A responsive workout companion for progressive overload, posture tracking, and automated rep counts using on-device vision. Built for athletes who demand frictionless logging.
-                  </p>
-
-                  <div class="card-tech-chips">
-                    <span class="tech-chip">Flutter</span>
-                    <span class="tech-chip">MediaPipe</span>
-                    <span class="tech-chip">Python / FastAPI</span>
-                    <span class="tech-chip">Supabase</span>
-                  </div>
-
-                  <div class="store-buttons-row">
-                    <a href="javascript:void(0)" class="store-badge-btn" title="Download on App Store">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 7.15c.66-.8 1.1-1.92.98-3.04-1 .04-2.14.65-2.82 1.44-.59.69-1.12 1.83-.98 2.92 1.12.09 2.18-.55 2.82-1.32z"/>
-                      </svg>
-                      <div class="store-text">
-                        <span class="store-sub">Download on the</span>
-                        <span class="store-name">App Store</span>
-                      </div>
-                    </a>
-
-                    <a href="javascript:void(0)" class="store-badge-btn" title="Get it on Google Play">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M3.609 1.814L13.793 12 3.61 22.186a2.217 2.217 0 0 1-.22-.988V2.802c0-.36.08-.7.22-.988zm11.242 11.243l2.42 2.42-12.038 6.945 9.618-9.365zm2.42-2.42l-2.42 2.42-9.618-9.365 12.038 6.945zm1.097 1.097l3.666 2.116c1.034.597 1.034 1.572 0 2.17l-3.666 2.115-2.09-2.09 2.09-2.311z"/>
-                      </svg>
-                      <div class="store-text">
-                        <span class="store-sub">GET IT ON</span>
-                        <span class="store-name">Google Play</span>
-                      </div>
-                    </a>
-                  </div>
-
-                </div>
-              </article>
-
-              <!-- PROJECT CARD 3: Voyager -->
-              <article class="project-card" data-index="2" id="card-2" tabindex="0" role="region" aria-label="Voyager Travel Itinerary Project">
-                <div class="card-glass-frame">
-                  
-                  <div class="card-tags-row">
-                    <span class="card-pill pill-highlight">&lt; TRAVEL &amp; EXPLORATION &gt;</span>
-                    <span class="card-pill">OFFLINE MAPS SYNC</span>
-                    <span class="card-pill">DESIGN EXCELLENCE 2025</span>
-                  </div>
-
-                  <div class="card-brand-row">
-                    <div class="app-icon app-icon-emerald">
-                      <svg width="50" height="50" viewBox="0 0 100 100" fill="none">
-                        <rect width="100" height="100" rx="24" fill="#065f46"/>
-                        <circle cx="50" cy="50" r="32" stroke="#10b981" stroke-width="4" stroke-dasharray="4 4"/>
-                        <polygon points="50,24 58,46 50,42 42,46" fill="#ffffff"/>
-                        <polygon points="50,76 58,54 50,58 42,54" fill="#34d399"/>
-                        <circle cx="50" cy="50" r="5" fill="#ffffff"/>
-                      </svg>
-                    </div>
-                    <div class="app-title-group">
-                      <h3 class="app-title">Voyager &mdash; Trip Planner</h3>
-                      <span class="app-category">TRAVEL &middot; COLLABORATIVE &middot; MAPS</span>
-                    </div>
-                  </div>
-
-                  <p class="app-description justified-text">
-                    Collaborative itinerary planning for intrepid travelers. Real-time offline map syncing, multi-currency group expense splitting, and dynamic route optimization for remote adventures.
-                  </p>
-
-                  <div class="card-tech-chips">
-                    <span class="tech-chip">Next.js 15</span>
-                    <span class="tech-chip">Mapbox GL</span>
-                    <span class="tech-chip">Tailwind CSS</span>
-                    <span class="tech-chip">WebSockets</span>
-                  </div>
-
-                  <div class="store-buttons-row">
-                    <a href="javascript:void(0)" class="store-badge-btn" title="Download on App Store">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 7.15c.66-.8 1.1-1.92.98-3.04-1 .04-2.14.65-2.82 1.44-.59.69-1.12 1.83-.98 2.92 1.12.09 2.18-.55 2.82-1.32z"/>
-                      </svg>
-                      <div class="store-text">
-                        <span class="store-sub">Download on the</span>
-                        <span class="store-name">App Store</span>
-                      </div>
-                    </a>
-
-                    <a href="javascript:void(0)" class="store-badge-btn" title="Get it on Google Play">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M3.609 1.814L13.793 12 3.61 22.186a2.217 2.217 0 0 1-.22-.988V2.802c0-.36.08-.7.22-.988zm11.242 11.243l2.42 2.42-12.038 6.945 9.618-9.365zm2.42-2.42l-2.42 2.42-9.618-9.365 12.038 6.945zm1.097 1.097l3.666 2.116c1.034.597 1.034 1.572 0 2.17l-3.666 2.115-2.09-2.09 2.09-2.311z"/>
-                      </svg>
-                      <div class="store-text">
-                        <span class="store-sub">GET IT ON</span>
-                        <span class="store-name">Google Play</span>
-                      </div>
-                    </a>
-                  </div>
-
-                </div>
-              </article>
-
-            </div>
-
-            <!-- Carousel Navigation Controls -->
-            <div class="carousel-nav-bar">
-              <button class="carousel-arrow-btn" id="carousel-prev" type="button" aria-label="Previous Project">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polyline points="15 18 9 12 15 6"></polyline>
-                </svg>
-              </button>
-
-              <div class="carousel-dots" id="carousel-dots" role="tablist">
-                <button class="carousel-dot active" data-index="0" role="tab" aria-selected="true" aria-label="Project 1: Tarsi">
-                  <span class="dot-index">01</span>
-                </button>
-                <button class="carousel-dot" data-index="1" role="tab" aria-selected="false" aria-label="Project 2: HabitPulse">
-                  <span class="dot-index">02</span>
-                </button>
-                <button class="carousel-dot" data-index="2" role="tab" aria-selected="false" aria-label="Project 3: Voyager">
-                  <span class="dot-index">03</span>
-                </button>
-              </div>
-
-              <button class="carousel-arrow-btn" id="carousel-next" type="button" aria-label="Next Project">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polyline points="9 18 15 12 9 6"></polyline>
-                </svg>
-              </button>
-            </div>
-
-          </div>
-
         </div>
       </section>
 
       <!-- ========================================================
-           03 — LANGUAGES & AI STACK
-           Part A: Draggable & Bouncing Languages (CSS, JS, React, SQL)
-           Part B: AI Panels with Actual Uploaded Pictures & 1-Sentence Descriptions
-           ======================================================== -->
-      <section id="skills" class="section-block skills-section">
-        <div class="section-container">
-          
-          <div class="section-header">
-            <div class="section-tag-wrap">
-              <span class="section-index">03</span>
-              <span class="section-dash">&mdash;</span>
-              <h2 class="section-heading">languages &amp; ai stack</h2>
-            </div>
-            <span class="section-sub-label">CORE TOOLS</span>
-          </div>
-
-          <!-- PART A: BOUNCING & DRAGGABLE LANGUAGES (CSS, JavaScript, React, SQL) -->
-          <div class="tech-sandbox-container">
-            <div class="draggable-arena" id="draggable-arena">
-              
-              <!-- 1. CSS3 -->
-              <div class="drag-badge" id="badge-css" data-id="css" tabindex="0">
-                <div class="badge-tile">
-                  <div class="tech-icon-wrap icon-css">
-                    <svg viewBox="0 0 24 24" width="34" height="34" fill="currentColor">
-                      <path d="M1.5 0h21l-1.9 21.2L12 24l-8.6-2.8L1.5 0zm17.9 4.3H4.6l.4 4.5h13.9l-.4 4.6-4 1.3-4-1.3-.3-2.5H6.2l.4 5.3 5.4 1.8 5.4-1.8.9-10.1-.4-1.8z" fill="#2965f1"/>
-                      <path d="M12 21.8l6.5-2.1L20 4.3H12v17.5z" fill="#3b82f6" opacity="0.3"/>
-                    </svg>
-                  </div>
-                  <span class="badge-label">CSS3</span>
-                </div>
-              </div>
-
-              <!-- 2. JavaScript -->
-              <div class="drag-badge" id="badge-js" data-id="js" tabindex="0">
-                <div class="badge-tile">
-                  <div class="tech-icon-wrap icon-js">
-                    <svg viewBox="0 0 24 24" width="34" height="34" fill="none">
-                      <rect width="24" height="24" rx="4" fill="#f7df1e"/>
-                      <path d="M6.5 17.5l2-.3c.3.7.8 1.1 1.6 1.1.9 0 1.4-.4 1.4-1.4v-6.4h2.5v6.4c0 2.2-1.3 3.3-3.6 3.3-2 0-3.3-1-3.9-2.7zm8.3-1.6l2-.4c.4.8 1 1.3 1.9 1.3.8 0 1.3-.4 1.3-1 0-.6-.4-.9-1.5-1.4l-1.3-.6c-1.8-.8-2.6-1.7-2.6-3.2 0-1.8 1.5-3.2 3.8-3.2 1.7 0 3 .7 3.7 2.2l-2 .5c-.3-.6-.7-1-1.6-1-.8 0-1.2.4-1.2.9 0 .6.4.9 1.4 1.3l1.2.5c2.1 1 2.8 1.9 2.8 3.4 0 2.1-1.6 3.3-4 3.3-2.2 0-3.6-1-4.3-2.6z" fill="#000000"/>
-                    </svg>
-                  </div>
-                  <span class="badge-label">JavaScript</span>
-                </div>
-              </div>
-
-              <!-- 3. React -->
-              <div class="drag-badge" id="badge-react" data-id="react" tabindex="0">
-                <div class="badge-tile">
-                  <div class="tech-icon-wrap icon-react">
-                    <svg viewBox="-11.5 -10.23174 23 20.46348" width="36" height="36">
-                      <circle cx="0" cy="0" r="2.05" fill="#61dafb"/>
-                      <g stroke="#61dafb" stroke-width="1" fill="none">
-                        <ellipse rx="11" ry="4.2"/>
-                        <ellipse rx="11" ry="4.2" transform="rotate(60)"/>
-                        <ellipse rx="11" ry="4.2" transform="rotate(120)"/>
-                      </g>
-                    </svg>
-                  </div>
-                  <span class="badge-label">React</span>
-                </div>
-              </div>
-
-              <!-- 4. SQL -->
-              <div class="drag-badge" id="badge-sql" data-id="sql" tabindex="0">
-                <div class="badge-tile">
-                  <div class="tech-icon-wrap icon-sql">
-                    <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="#10b981" stroke-width="2">
-                      <ellipse cx="12" cy="5" rx="9" ry="3"/>
-                      <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
-                      <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
-                    </svg>
-                  </div>
-                  <span class="badge-label">SQL</span>
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-          <!-- PART B: AI WORKBENCH PANELS (Actual Uploaded Pictures & 1-Sentence Descriptions) -->
-          <div class="ai-stack-wrapper">
-            <div class="ai-panels-grid">
-              
-              <!-- 1. Claude -->
-              <article class="ai-panel-card" data-ai="claude">
-                <div class="ai-card-top">
-                  <div class="ai-img-frame">
-                    <img src="assets/ai-claude.png" alt="Claude AI Logo" class="ai-brand-img" loading="lazy">
-                  </div>
-                  <div class="ai-title-wrap">
-                    <h3 class="ai-name">Claude</h3>
-                    <span class="ai-provider">Anthropic</span>
-                  </div>
-                  <a href="https://claude.ai" target="_blank" rel="noopener noreferrer" class="ai-external-link" aria-label="Visit Claude Landing Page" title="Visit Claude">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <line x1="7" y1="17" x2="17" y2="7"></line>
-                      <polyline points="7 7 17 7 17 17"></polyline>
-                    </svg>
-                  </a>
-                </div>
-                <div class="ai-card-body">
-                  <p class="ai-usage-desc justified-text">
-                    I use Claude for intense coding, deep architectural reasoning, and complex refactoring.
-                  </p>
-                </div>
-              </article>
-
-              <!-- 2. ChatGPT -->
-              <article class="ai-panel-card" data-ai="chatgpt">
-                <div class="ai-card-top">
-                  <div class="ai-img-frame">
-                    <img src="assets/ai-chatgpt.png" alt="ChatGPT Logo" class="ai-brand-img" loading="lazy">
-                  </div>
-                  <div class="ai-title-wrap">
-                    <h3 class="ai-name">ChatGPT</h3>
-                    <span class="ai-provider">OpenAI</span>
-                  </div>
-                  <a href="https://chatgpt.com" target="_blank" rel="noopener noreferrer" class="ai-external-link" aria-label="Visit ChatGPT Landing Page" title="Visit ChatGPT">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <line x1="7" y1="17" x2="17" y2="7"></line>
-                      <polyline points="7 7 17 7 17 17"></polyline>
-                    </svg>
-                  </a>
-                </div>
-                <div class="ai-card-body">
-                  <p class="ai-usage-desc justified-text">
-                    I use ChatGPT for ideas, prompt creation, and conversational debugging.
-                  </p>
-                </div>
-              </article>
-
-              <!-- 3. Codex -->
-              <article class="ai-panel-card" data-ai="codex">
-                <div class="ai-card-top">
-                  <div class="ai-img-frame">
-                    <img src="assets/ai-codex.webp" alt="Codex Logo" class="ai-brand-img" loading="lazy">
-                  </div>
-                  <div class="ai-title-wrap">
-                    <h3 class="ai-name">Codex</h3>
-                    <span class="ai-provider">OpenAI</span>
-                  </div>
-                  <a href="https://openai.com/index/openai-codex/" target="_blank" rel="noopener noreferrer" class="ai-external-link" aria-label="Visit Codex Landing Page" title="Visit Codex">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <line x1="7" y1="17" x2="17" y2="7"></line>
-                      <polyline points="7 7 17 7 17 17"></polyline>
-                    </svg>
-                  </a>
-                </div>
-                <div class="ai-card-body">
-                  <p class="ai-usage-desc justified-text">
-                    I use Codex for rapid code generation, terminal automation, and syntax autocompletion.
-                  </p>
-                </div>
-              </article>
-
-              <!-- 4. Gemini -->
-              <article class="ai-panel-card" data-ai="gemini">
-                <div class="ai-card-top">
-                  <div class="ai-img-frame">
-                    <img src="assets/ai-gemini.png" alt="Google Gemini Logo" class="ai-brand-img" loading="lazy">
-                  </div>
-                  <div class="ai-title-wrap">
-                    <h3 class="ai-name">Gemini</h3>
-                    <span class="ai-provider">Google DeepMind</span>
-                  </div>
-                  <a href="https://gemini.google.com" target="_blank" rel="noopener noreferrer" class="ai-external-link" aria-label="Visit Gemini Landing Page" title="Visit Gemini">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <line x1="7" y1="17" x2="17" y2="7"></line>
-                      <polyline points="7 7 17 7 17 17"></polyline>
-                    </svg>
-                  </a>
-                </div>
-                <div class="ai-card-body">
-                  <p class="ai-usage-desc justified-text">
-                    I use Gemini for multimodal analysis, large-context research, and technical documentation.
-                  </p>
-                </div>
-              </article>
-
-              <!-- 5. Antigravity -->
-              <article class="ai-panel-card" data-ai="antigravity">
-                <div class="ai-card-top">
-                  <div class="ai-img-frame">
-                    <img src="assets/ai-antigravity.png" alt="Google Antigravity Logo" class="ai-brand-img" loading="lazy">
-                  </div>
-                  <div class="ai-title-wrap">
-                    <h3 class="ai-name">Antigravity</h3>
-                    <span class="ai-provider">Google DeepMind</span>
-                  </div>
-                  <a href="https://deepmind.google/technologies/gemini/" target="_blank" rel="noopener noreferrer" class="ai-external-link" aria-label="Visit Antigravity Landing Page" title="Visit Antigravity">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <line x1="7" y1="17" x2="17" y2="7"></line>
-                      <polyline points="7 7 17 7 17 17"></polyline>
-                    </svg>
-                  </a>
-                </div>
-                <div class="ai-card-body">
-                  <p class="ai-usage-desc justified-text">
-                    I use Antigravity as my autonomous agentic workbench for multi-agent workflows and end-to-end builds.
-                  </p>
-                </div>
-              </article>
-
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- ========================================================
-           04 — EXPERIENCE SECTION
+           03 — EXPERIENCE SECTION
            ======================================================== -->
       <section id="experience" class="section-block experience-section">
         <div class="section-container">
           
           <div class="section-header">
             <div class="section-tag-wrap">
-              <span class="section-index">04</span>
+              <span class="section-index">03</span>
               <span class="section-dash">&mdash;</span>
               <h2 class="section-heading">experience</h2>
             </div>
-            <a href="#contact" class="section-action-link">
-              FULL HISTORY <span class="arrow">&rarr;</span>
+            <a href="mailto:jhonkyncabrigas@gmail.com" class="section-action-link">
+              GET IN TOUCH <span class="arrow">&rarr;</span>
             </a>
           </div>
 

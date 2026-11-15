@@ -940,6 +940,94 @@ html[data-theme="light"] .toggle-thumb {
 }
 
 /* ==========================================================================
+   QUICK NAVIGATION SECTION (Separate Screens: Projects & Stacks)
+   ========================================================================== */
+.quick-nav-section {
+  padding: 3.5rem 0;
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+  background: rgba(var(--emerald-glow-rgb), 0.015);
+}
+
+.quick-nav-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.quick-nav-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-card);
+  border: 1px solid var(--border-medium);
+  border-radius: 14px;
+  padding: 1.8rem;
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: all var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.quick-nav-card:hover {
+  border-color: var(--emerald-primary);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px -10px rgba(var(--emerald-glow-rgb), 0.25);
+}
+
+.quick-nav-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.quick-nav-num {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--emerald-primary);
+  letter-spacing: 0.1em;
+}
+
+.quick-nav-arrow {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  transition: transform var(--transition-fast), color var(--transition-fast);
+}
+
+.quick-nav-card:hover .quick-nav-arrow {
+  transform: translateX(4px);
+  color: var(--emerald-primary);
+}
+
+.quick-nav-title {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.quick-nav-desc {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin-bottom: 1.4rem;
+  flex-grow: 1;
+}
+
+.quick-nav-footer {
+  margin-top: auto;
+}
+
+.quick-nav-tag {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--emerald-primary);
+  font-weight: 600;
+}
+
+/* ==========================================================================
    GENERIC SECTION CONTAINERS & HEADERS
    ========================================================================== */
 .section-block {

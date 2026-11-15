@@ -1,0 +1,273 @@
+/* ==========================================================================
+   SUBPAGE SHARED STYLES — projects.html & stacks.html
+   Inherits design tokens from style.css
+   ========================================================================== */
+
+/* Subpage layout */
+.subpage-main {
+  min-height: 100vh;
+  padding-top: 5rem;
+  padding-bottom: 4rem;
+}
+
+.subpage-container {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Hero header of subpage */
+.subpage-hero {
+  padding: 2.5rem 0 2.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 2.5rem;
+}
+
+.back-link {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  display: inline-block;
+  margin-bottom: 1rem;
+  transition: color var(--transition-fast);
+}
+
+.back-link:hover {
+  color: var(--emerald-primary);
+}
+
+.subpage-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 8vw, 4rem);
+  font-weight: 900;
+  color: var(--text-primary);
+  line-height: 1;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+.subpage-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  max-width: 540px;
+}
+
+/* Active nav link */
+.nav-active {
+  color: var(--emerald-primary) !important;
+}
+
+/* ==========================================================================
+   PROJECTS PAGE
+   ========================================================================== */
+.projects-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.proj-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  padding: 1.5rem;
+  transition: border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.proj-card:hover {
+  border-color: var(--border-highlight);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.proj-card-top {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.9rem;
+}
+
+.proj-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.proj-title-group {
+  flex: 1;
+}
+
+.proj-name {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.1rem;
+}
+
+.proj-type {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.proj-year {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  align-self: flex-start;
+  flex-shrink: 0;
+}
+
+.proj-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin-bottom: 1rem;
+}
+
+.proj-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.1rem;
+}
+
+.proj-tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  padding: 0.22rem 0.65rem;
+  border-radius: 6px;
+  letter-spacing: 0.04em;
+}
+
+.proj-links {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.proj-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  text-decoration: none;
+  border-radius: 7px;
+  padding: 0.4rem 0.9rem;
+  transition: all var(--transition-fast);
+  font-weight: 600;
+}
+
+.proj-link-primary {
+  background: var(--emerald-primary);
+  color: #fff;
+  border: 1px solid transparent;
+}
+
+.proj-link-primary:hover {
+  background: var(--emerald-bright);
+  color: #070809;
+  box-shadow: 0 0 18px rgba(var(--emerald-glow-rgb), 0.4);
+}
+
+.proj-link-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-medium);
+}
+
+.proj-link-ghost:hover {
+  color: var(--text-primary);
+  border-color: var(--border-highlight);
+}
+
+/* ==========================================================================
+   STACKS PAGE
+   ========================================================================== */
+.stack-section {
+  margin-bottom: 2.5rem;
+}
+
+.stack-category-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+  margin-bottom: 0.9rem;
+}
+
+.stack-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-bottom: 2.2rem;
+}
+
+.stack-tag {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  background: var(--bg-card);
+  border: 1px solid var(--border-medium);
+  padding: 0.62rem 1.25rem;
+  border-radius: 9px;
+  letter-spacing: 0.02em;
+  cursor: default;
+  transition: all var(--transition-fast);
+}
+
+.stack-tag:hover {
+  border-color: var(--emerald-primary);
+  color: var(--emerald-primary);
+  box-shadow: 0 0 16px rgba(var(--emerald-glow-rgb), 0.2);
+  transform: translateY(-2px);
+}
+
+/* AI cards on stacks page */
+.ai-stack-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+  .subpage-title {
+    font-size: 2.2rem;
+  }
+
+  .proj-card {
+    padding: 1.2rem;
+  }
+
+  .proj-card-top {
+    flex-wrap: wrap;
+  }
+
+  .proj-year {
+    margin-left: auto;
+  }
+
+  .stack-tag {
+    font-size: 0.82rem;
+    padding: 0.45rem 0.9rem;
+  }
+}
