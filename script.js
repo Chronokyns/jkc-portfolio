@@ -1,6 +1,6 @@
 /**
  * JHON KYN CABRIGAS (JKC) — PORTFOLIO CONTROLLER
- * Architecture: Modular Vanilla ES6+ with High-Performance RAF & Touch Support
+ * Architecture: Modular Vanilla ES6+ with PointerEvents Physics & RAF
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -38,7 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (introDismissed) return;
     introDismissed = true;
     
-    // Add exit transition
     if (introScreen) {
       introScreen.classList.add('hide-intro');
       setTimeout(() => {
@@ -46,7 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 800);
     }
 
-    // Trigger hero subtle entry animation
     if (heroPortrait) {
       heroPortrait.style.transform = 'scale(0.96)';
       heroPortrait.style.opacity = '0';
@@ -65,7 +63,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const progress = Math.min(elapsed / INTRO_DURATION_MS, 1);
     const remainingSeconds = Math.max((INTRO_DURATION_MS - elapsed) / 1000, 0);
 
-    // Update UI elements
     if (introProgressBar) {
       introProgressBar.style.width = `${progress * 100}%`;
     }
@@ -112,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     3. 3D CAROUSEL CONTROLLER (Matching Screenshot Functionality)
+     3. 3D CAROUSEL CONTROLLER (bryllim.com Style Swapping)
      ========================================================================== */
   function updateCarousel(newIndex) {
     currentCardIndex = (newIndex + totalCards) % totalCards;
@@ -121,7 +118,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextIndex = (currentCardIndex + 1) % totalCards;
 
     cards.forEach((card, idx) => {
-      // Remove all positional classes
       card.classList.remove('active', 'prev', 'next', 'hidden');
       card.setAttribute('aria-selected', 'false');
 
@@ -141,7 +137,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Update pagination dots
     dots.forEach((dot, idx) => {
       if (idx === currentCardIndex) {
         dot.classList.add('active');
@@ -153,7 +148,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Card click event listeners: clicking side card swaps it to the front
   cards.forEach((card, idx) => {
     card.addEventListener('click', () => {
       if (idx !== currentCardIndex) {
@@ -169,7 +163,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Prev & Next Buttons
   if (prevBtn) {
     prevBtn.addEventListener('click', () => {
       updateCarousel(currentCardIndex - 1);
@@ -182,7 +175,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Pagination Dots Click
   dots.forEach((dot) => {
     dot.addEventListener('click', () => {
       const targetIndex = parseInt(dot.getAttribute('data-index'), 10);
@@ -190,7 +182,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Keyboard navigation for carousel
   const carouselStage = document.getElementById('carousel-stage');
   if (carouselStage) {
     carouselStage.addEventListener('keydown', (e) => {
@@ -204,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Mobile Touch Swipe support for carousel
+  // Mobile Touch Swipe for carousel
   let touchStartX = 0;
   let touchEndX = 0;
 
@@ -215,25 +206,96 @@ document.addEventListener('DOMContentLoaded', () => {
 
     carouselStage.addEventListener('touchend', (e) => {
       touchEndX = e.changedTouches[0].screenX;
-      handleSwipe();
+      const swipeDistance = touchEndX - touchStartX;
+      if (swipeDistance > 45) {
+        updateCarousel(currentCardIndex - 1);
+      } else if (swipeDistance < -45) {
+        updateCarousel(currentCardIndex + 1);
+      }
     }, { passive: true });
   }
 
-  function handleSwipe() {
-    const swipeDistance = touchEndX - touchStartX;
-    const threshold = 45; // min pixels to count as swipe
-    if (swipeDistance > threshold) {
-      updateCarousel(currentCardIndex - 1);
-    } else if (swipeDistance < -threshold) {
-      updateCarousel(currentCardIndex + 1);
-    }
-  }
-
-  // Initial Carousel setup
   updateCarousel(0);
 
   /* ==========================================================================
-     4. CURSOR GLOW & HERO PARALLAX INTERACTION
+     4. DRAGGABLE & STICKY FLOATING LANGUAGES (CSS, JS, React, SQL)
+     Pointer Events Physics: Drag anywhere, release to snap back!
+     ========================================================================== */
+  const dragBadges = document.querySelectorAll('.drag-badge');
+
+  dragBadges.forEach((badge) => {
+    let isDragging = false;
+    let startX = 0;
+    let startY = 0;
+    let currentX = 0;
+    let currentY = 0;
+
+    badge.addEventListener('pointerdown', (e) => {
+      isDragging = true;
+      startX = e.clientX;
+      startY = e.clientY;
+      currentX = 0;
+      currentY = 0;
+
+      badge.classList.add('dragging');
+      badge.classList.remove('snapping');
+      badge.setPointerCapture(e.pointerId);
+    });
+
+    badge.addEventListener('pointermove', (e) => {
+      if (!isDragging) return;
+      currentX = e.clientX - startX;
+      currentY = e.clientY - startY;
+
+      // Apply drag displacement with subtle tilt
+      const rotate = currentX * 0.05;
+      badge.style.transform = `translate(${currentX}px, ${currentY}px) rotate(${rotate}deg) scale(1.08)`;
+    });
+
+    function endDrag(e) {
+      if (!isDragging) return;
+      isDragging = false;
+      badge.classList.remove('dragging');
+      badge.classList.add('snapping');
+
+      try {
+        badge.releasePointerCapture(e.pointerId);
+      } catch (err) {}
+
+      // Snap back to original floating position with spring animation
+      badge.style.transform = 'translate(0px, 0px) rotate(0deg) scale(1)';
+
+      setTimeout(() => {
+        badge.classList.remove('snapping');
+        badge.style.transform = '';
+      }, 650);
+    }
+
+    badge.addEventListener('pointerup', endDrag);
+    badge.addEventListener('pointercancel', endDrag);
+  });
+
+  /* ==========================================================================
+     5. AI WORKBENCH PANELS (Hover / Tap Toggle)
+     ========================================================================== */
+  const aiCards = document.querySelectorAll('.ai-panel-card');
+
+  aiCards.forEach((card) => {
+    card.addEventListener('click', (e) => {
+      // If clicking the external link arrow, let it open normally
+      if (e.target.closest('.ai-external-link')) return;
+
+      // Toggle active color state on mobile tap
+      const wasActive = card.classList.contains('active');
+      aiCards.forEach((c) => c.classList.remove('active'));
+      if (!wasActive) {
+        card.classList.add('active');
+      }
+    });
+  });
+
+  /* ==========================================================================
+     6. CURSOR GLOW & HERO PARALLAX
      ========================================================================== */
   let mouseX = window.innerWidth / 2;
   let mouseY = window.innerHeight / 2;
@@ -244,7 +306,6 @@ document.addEventListener('DOMContentLoaded', () => {
     mouseX = e.clientX;
     mouseY = e.clientY;
 
-    // Subtle 3D tilt on hero portrait on desktop
     if (heroStage && heroPortrait && window.innerWidth > 992) {
       const rect = heroStage.getBoundingClientRect();
       const stageCenterX = rect.left + rect.width / 2;
@@ -253,20 +314,18 @@ document.addEventListener('DOMContentLoaded', () => {
       const deltaX = (e.clientX - stageCenterX) / (rect.width / 2);
       const deltaY = (e.clientY - stageCenterY) / (rect.height / 2);
 
-      // Gentle parallax values
-      const rotateY = deltaX * 4;
-      const rotateX = -deltaY * 3;
-      const moveX = deltaX * 8;
+      const rotateY = deltaX * 3.5;
+      const rotateX = -deltaY * 2.5;
+      const moveX = deltaX * 6;
 
       heroPortrait.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateX(${moveX}px)`;
       
       if (heroJkcText) {
-        heroJkcText.style.transform = `translate(${-deltaX * 12}px, ${-deltaY * 6}px)`;
+        heroJkcText.style.transform = `translate(${-deltaX * 10}px, ${-deltaY * 5}px)`;
       }
     }
   }, { passive: true });
 
-  // Reset portrait tilt when mouse leaves
   if (heroStage) {
     heroStage.addEventListener('mouseleave', () => {
       if (heroPortrait) {
@@ -278,7 +337,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Smooth lerp for ambient glow
   function animateCursorGlow() {
     if (cursorGlow) {
       currentGlowX += (mouseX - currentGlowX) * 0.12;
@@ -291,7 +349,7 @@ document.addEventListener('DOMContentLoaded', () => {
   requestAnimationFrame(animateCursorGlow);
 
   /* ==========================================================================
-     5. EMAIL COPY TO CLIPBOARD INTERACTION
+     7. EMAIL COPY TO CLIPBOARD INTERACTION
      ========================================================================== */
   const copyBtn = document.getElementById('copy-email-btn');
   const copyBtnText = document.getElementById('copy-btn-text');
@@ -301,21 +359,16 @@ document.addEventListener('DOMContentLoaded', () => {
     copyBtn.addEventListener('click', async () => {
       try {
         await navigator.clipboard.writeText(emailAddress);
-        if (copyBtnText) {
-          copyBtnText.textContent = 'Copied to Clipboard! ✓';
-        }
+        if (copyBtnText) copyBtnText.textContent = 'Copied to Clipboard! ✓';
         copyBtn.style.borderColor = 'var(--emerald-primary)';
         copyBtn.style.color = 'var(--emerald-primary)';
 
         setTimeout(() => {
-          if (copyBtnText) {
-            copyBtnText.textContent = 'Copy Email';
-          }
+          if (copyBtnText) copyBtnText.textContent = 'Copy Email';
           copyBtn.style.borderColor = '';
           copyBtn.style.color = '';
         }, 2500);
       } catch (err) {
-        // Fallback for clipboard
         const input = document.createElement('input');
         input.value = emailAddress;
         document.body.appendChild(input);
@@ -331,7 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     6. MOBILE NAVIGATION MENU
+     8. MOBILE NAVIGATION MENU
      ========================================================================== */
   if (mobileMenuBtn && mobileNav) {
     mobileMenuBtn.addEventListener('click', () => {
@@ -349,7 +402,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     7. CONTACT FORM DISPATCH MOCK
+     9. CONTACT FORM DISPATCH MOCK
      ========================================================================== */
   window.handleContactSubmit = function() {
     const feedback = document.getElementById('form-feedback');
