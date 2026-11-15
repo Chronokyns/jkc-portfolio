@@ -53,11 +53,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Tapping or clicking anywhere skips early
-  if (introScreen) {
-    introScreen.addEventListener('click', dismissIntro);
-    introScreen.addEventListener('touchstart', dismissIntro, { passive: true });
-  }
+  // The animation must complete its full duration before transitioning;
+  // early click/touch interruption is disabled so user can watch the full pixel assembly.
+  // introScreen automatically dismisses once TOTAL_INTRO_TIME is reached.
 
   function startPixelIntro() {
     if (!pixelCanvas) {
