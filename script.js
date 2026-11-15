@@ -1,10 +1,9 @@
 /**
  * JHON KYN CABRIGAS (JKC) — PORTFOLIO CONTROLLER
- * Architecture: Modular Vanilla ES6+ with PointerEvents Physics & RAF
+ * Architecture: Modular Vanilla ES6+ with 2D Elastic Collision Physics & RAF
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Initial State & Elements
   const htmlEl = document.documentElement;
   const introScreen = document.getElementById('intro-screen');
   const introTimer = document.getElementById('intro-timer');
@@ -109,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     3. 3D CAROUSEL CONTROLLER (bryllim.com Style Swapping)
+     3. 3D CAROUSEL CONTROLLER (Swapping Cards on Side Click)
      ========================================================================== */
   function updateCarousel(newIndex) {
     currentCardIndex = (newIndex + totalCards) % totalCards;
@@ -218,79 +217,226 @@ document.addEventListener('DOMContentLoaded', () => {
   updateCarousel(0);
 
   /* ==========================================================================
-     4. DRAGGABLE & STICKY FLOATING LANGUAGES (CSS, JS, React, SQL)
-     Pointer Events Physics: Drag anywhere, release to snap back!
+     4. 2D ELASTIC BOUNCE & COLLISION PHYSICS FOR LANGUAGES
+     Badges bounce off walls AND each other so they NEVER overlap!
+     Supports direct dragging with mouse & finger.
      ========================================================================== */
-  const dragBadges = document.querySelectorAll('.drag-badge');
+  const arena = document.getElementById('draggable-arena');
+  const badgeEls = Array.from(document.querySelectorAll('.drag-badge'));
 
-  dragBadges.forEach((badge) => {
-    let isDragging = false;
-    let startX = 0;
-    let startY = 0;
-    let currentX = 0;
-    let currentY = 0;
+  if (arena && badgeEls.length > 0) {
+    const bodies = [];
 
-    badge.addEventListener('pointerdown', (e) => {
-      isDragging = true;
-      startX = e.clientX;
-      startY = e.clientY;
-      currentX = 0;
-      currentY = 0;
-
-      badge.classList.add('dragging');
-      badge.classList.remove('snapping');
-      badge.setPointerCapture(e.pointerId);
+    // Initialize physical bodies
+    badgeEls.forEach((el, i) => {
+      bodies.push({
+        el: el,
+        x: 0,
+        y: 0,
+        vx: (i % 2 === 0 ? 0.75 : -0.75) * (0.8 + Math.random() * 0.4),
+        vy: (i < 2 ? 0.65 : -0.65) * (0.8 + Math.random() * 0.4),
+        width: 90,
+        height: 80,
+        radius: 46,
+        isDragging: false,
+        dragOffsetX: 0,
+        dragOffsetY: 0,
+        lastDragX: 0,
+        lastDragY: 0,
+        lastDragTime: 0
+      });
     });
 
-    badge.addEventListener('pointermove', (e) => {
-      if (!isDragging) return;
-      currentX = e.clientX - startX;
-      currentY = e.clientY - startY;
+    function resetArenaLayout() {
+      const arenaW = arena.clientWidth || 320;
+      const arenaH = arena.clientHeight || 240;
 
-      // Apply drag displacement with subtle tilt
-      const rotate = currentX * 0.05;
-      badge.style.transform = `translate(${currentX}px, ${currentY}px) rotate(${rotate}deg) scale(1.08)`;
-    });
+      // Position in 4 distinct quadrants initially
+      const initPositions = [
+        { x: arenaW * 0.1, y: arenaH * 0.15 },
+        { x: arenaW * 0.65, y: arenaH * 0.12 },
+        { x: arenaW * 0.16, y: arenaH * 0.55 },
+        { x: arenaW * 0.62, y: arenaH * 0.52 }
+      ];
 
-    function endDrag(e) {
-      if (!isDragging) return;
-      isDragging = false;
-      badge.classList.remove('dragging');
-      badge.classList.add('snapping');
-
-      try {
-        badge.releasePointerCapture(e.pointerId);
-      } catch (err) {}
-
-      // Snap back to original floating position with spring animation
-      badge.style.transform = 'translate(0px, 0px) rotate(0deg) scale(1)';
-
-      setTimeout(() => {
-        badge.classList.remove('snapping');
-        badge.style.transform = '';
-      }, 650);
+      bodies.forEach((b, i) => {
+        const rect = b.el.getBoundingClientRect();
+        if (rect.width > 0) {
+          b.width = rect.width;
+          b.height = rect.height;
+          b.radius = Math.max(rect.width, rect.height) / 2;
+        }
+        b.x = Math.max(5, Math.min(initPositions[i].x, arenaW - b.width - 5));
+        b.y = Math.max(5, Math.min(initPositions[i].y, arenaH - b.height - 5));
+      });
     }
 
-    badge.addEventListener('pointerup', endDrag);
-    badge.addEventListener('pointercancel', endDrag);
-  });
+    // Set initial positions after rendering
+    setTimeout(resetArenaLayout, 60);
+    window.addEventListener('resize', resetArenaLayout);
+
+    // Pointer Dragging Listeners
+    bodies.forEach((b) => {
+      b.el.addEventListener('pointerdown', (e) => {
+        b.isDragging = true;
+        b.el.classList.add('dragging');
+        b.el.setPointerCapture(e.pointerId);
+
+        const arenaRect = arena.getBoundingClientRect();
+        b.dragOffsetX = (e.clientX - arenaRect.left) - b.x;
+        b.dragOffsetY = (e.clientY - arenaRect.top) - b.y;
+
+        b.lastDragX = e.clientX;
+        b.lastDragY = e.clientY;
+        b.lastDragTime = performance.now();
+      });
+
+      b.el.addEventListener('pointermove', (e) => {
+        if (!b.isDragging) return;
+        const arenaRect = arena.getBoundingClientRect();
+        const now = performance.now();
+        const dt = Math.max(now - b.lastDragTime, 1);
+
+        b.x = (e.clientX - arenaRect.left) - b.dragOffsetX;
+        b.y = (e.clientY - arenaRect.top) - b.dragOffsetY;
+
+        // Calculate toss velocity on drag
+        b.vx = ((e.clientX - b.lastDragX) / dt) * 8;
+        b.vy = ((e.clientY - b.lastDragY) / dt) * 8;
+
+        // Clamp extreme speeds
+        const maxV = 3.5;
+        b.vx = Math.max(-maxV, Math.min(maxV, b.vx));
+        b.vy = Math.max(-maxV, Math.min(maxV, b.vy));
+
+        b.lastDragX = e.clientX;
+        b.lastDragY = e.clientY;
+        b.lastDragTime = now;
+      });
+
+      function endDrag(e) {
+        if (!b.isDragging) return;
+        b.isDragging = false;
+        b.el.classList.remove('dragging');
+
+        // Ensure minimum speed so it keeps floating
+        if (Math.abs(b.vx) < 0.3) b.vx = (Math.random() > 0.5 ? 0.7 : -0.7);
+        if (Math.abs(b.vy) < 0.3) b.vy = (Math.random() > 0.5 ? 0.6 : -0.6);
+
+        try {
+          b.el.releasePointerCapture(e.pointerId);
+        } catch (err) {}
+      }
+
+      b.el.addEventListener('pointerup', endDrag);
+      b.el.addEventListener('pointercancel', endDrag);
+    });
+
+    // Main 2D Physics Animation Loop (60fps)
+    function physicsTick() {
+      const arenaW = arena.clientWidth;
+      const arenaH = arena.clientHeight;
+
+      if (arenaW > 0 && arenaH > 0) {
+        // 1. Move and Wall Collisions
+        bodies.forEach((b) => {
+          if (!b.isDragging) {
+            b.x += b.vx;
+            b.y += b.vy;
+
+            // Left / Right Wall Bounce
+            if (b.x <= 0) {
+              b.x = 0;
+              b.vx = Math.abs(b.vx);
+            } else if (b.x + b.width >= arenaW) {
+              b.x = arenaW - b.width;
+              b.vx = -Math.abs(b.vx);
+            }
+
+            // Top / Bottom Wall Bounce
+            if (b.y <= 0) {
+              b.y = 0;
+              b.vy = Math.abs(b.vy);
+            } else if (b.y + b.height >= arenaH) {
+              b.y = arenaH - b.height;
+              b.vy = -Math.abs(b.vy);
+            }
+          }
+        });
+
+        // 2. Pairwise Collision Check & Elastic Bounce (Never Overlap!)
+        for (let i = 0; i < bodies.length; i++) {
+          for (let j = i + 1; j < bodies.length; j++) {
+            const b1 = bodies[i];
+            const b2 = bodies[j];
+
+            const c1x = b1.x + b1.width / 2;
+            const c1y = b1.y + b1.height / 2;
+            const c2x = b2.x + b2.width / 2;
+            const c2y = b2.y + b2.height / 2;
+
+            const dx = c2x - c1x;
+            const dy = c2y - c1y;
+            const dist = Math.hypot(dx, dy);
+            const minDist = (b1.radius + b2.radius) * 0.92;
+
+            if (dist < minDist && dist > 0.001) {
+              // Normalized collision vector
+              const nx = dx / dist;
+              const ny = dy / dist;
+
+              // Overlap separation: push them apart
+              const overlap = (minDist - dist) * 0.52;
+              if (!b1.isDragging) {
+                b1.x -= nx * overlap;
+                b1.y -= ny * overlap;
+              }
+              if (!b2.isDragging) {
+                b2.x += nx * overlap;
+                b2.y += ny * overlap;
+              }
+
+              // Elastic bounce: exchange normal velocities
+              const kx = b1.vx - b2.vx;
+              const ky = b1.vy - b2.vy;
+              const p = 2 * (nx * kx + ny * ky) / 2; // equal mass
+
+              if (!b1.isDragging) {
+                b1.vx -= p * nx;
+                b1.vy -= p * ny;
+              }
+              if (!b2.isDragging) {
+                b2.vx += p * nx;
+                b2.vy += p * ny;
+              }
+            }
+          }
+        }
+
+        // 3. Render Positions
+        bodies.forEach((b) => {
+          b.el.style.transform = `translate3d(${b.x}px, ${b.y}px, 0)`;
+        });
+      }
+
+      requestAnimationFrame(physicsTick);
+    }
+
+    requestAnimationFrame(physicsTick);
+  }
 
   /* ==========================================================================
-     5. AI WORKBENCH PANELS (Hover / Tap Toggle)
+     5. AI WORKBENCH TILES (Tap / Hover Toggle)
      ========================================================================== */
-  const aiCards = document.querySelectorAll('.ai-panel-card');
+  const aiTiles = document.querySelectorAll('.ai-tile-card');
 
-  aiCards.forEach((card) => {
-    card.addEventListener('click', (e) => {
-      // If clicking the external link arrow, let it open normally
-      if (e.target.closest('.ai-external-link')) return;
-
-      // Toggle active color state on mobile tap
-      const wasActive = card.classList.contains('active');
-      aiCards.forEach((c) => c.classList.remove('active'));
-      if (!wasActive) {
-        card.classList.add('active');
-      }
+  aiTiles.forEach((tile) => {
+    tile.addEventListener('click', (e) => {
+      // Toggle active color state on mobile tap if not already active
+      aiTiles.forEach((t) => {
+        if (t !== tile) t.classList.remove('active');
+      });
+      tile.classList.toggle('active');
     });
   });
 
