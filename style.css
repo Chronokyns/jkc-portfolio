@@ -522,6 +522,25 @@ html[data-theme="light"] .toggle-thumb {
   transform: translateY(-7px) rotate(-45deg);
 }
 
+/* When mobile menu drawer is open, guarantee main screen is completely covered and hidden */
+body.menu-open main,
+body.menu-open .subpage-main,
+body.menu-open footer,
+body.menu-open .site-footer,
+body.menu-open .cursor-glow,
+body.menu-open .hero-emerald-orb,
+body.menu-open .hero-bg-title-wrapper {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+body.menu-open .site-header {
+  background: var(--bg-primary) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
 .mobile-nav {
   position: fixed;
   top: 0;
@@ -529,6 +548,7 @@ html[data-theme="light"] .toggle-thumb {
   right: 0;
   bottom: 0;
   width: 100vw;
+  width: 100%;
   height: 100vh;
   height: 100dvh;
   background: var(--bg-primary);
@@ -542,6 +562,7 @@ html[data-theme="light"] .toggle-thumb {
   transform: translateY(-8px);
   transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .mobile-nav.open {
@@ -2214,6 +2235,94 @@ html[data-theme="light"] .store-badge-btn {
 
 .form-feedback.success {
   color: var(--emerald-primary);
+}
+
+/* ==========================================================================
+   04 — CERTIFICATIONS SECTION (Matching Bryl Lim Style)
+   ========================================================================== */
+.certifications-section {
+  padding: 5.5rem 0;
+  position: relative;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.certifications-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.cert-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 2.75rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: all var(--transition-fast);
+  cursor: default;
+  position: relative;
+}
+
+.cert-card:hover {
+  border-color: var(--border-highlight);
+  background: var(--bg-card-hover);
+  transform: translateY(-4px);
+  box-shadow: 0 14px 32px -10px rgba(var(--emerald-glow-rgb), 0.18);
+}
+
+.cert-icon-wrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+html[data-theme="light"] .cert-icon-wrap {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.cert-card:hover .cert-icon-wrap {
+  transform: scale(1.08);
+  border-color: var(--border-highlight);
+}
+
+.cert-title {
+  font-family: var(--font-display);
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  line-height: 1.35;
+}
+
+.cert-issuer {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+@media (max-width: 900px) {
+  .certifications-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .cert-card {
+    padding: 2.25rem 1.5rem;
+  }
 }
 
 /* ==========================================================================
