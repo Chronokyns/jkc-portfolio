@@ -110,4 +110,31 @@ document.addEventListener('DOMContentLoaded', () => {
         : 'none';
     }
   }, { passive: true });
+
+  // ── Project Filtering (projects.html) ──
+  const filterPills = document.querySelectorAll('.filter-pill');
+  const projCards = document.querySelectorAll('.proj-card[data-category]');
+
+  if (filterPills.length > 0 && projCards.length > 0) {
+    filterPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        const category = pill.getAttribute('data-filter');
+        filterPills.forEach(p => {
+          p.classList.remove('active');
+          p.setAttribute('aria-selected', 'false');
+        });
+        pill.classList.add('active');
+        pill.setAttribute('aria-selected', 'true');
+
+        projCards.forEach(card => {
+          const cardCat = card.getAttribute('data-category');
+          if (category === 'all' || cardCat === category) {
+            card.classList.remove('card-filtered-out');
+          } else {
+            card.classList.add('card-filtered-out');
+          }
+        });
+      });
+    });
+  }
 });

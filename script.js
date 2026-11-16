@@ -223,28 +223,44 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateCarousel(newIndex) {
       currentCardIndex = (newIndex + totalCards) % totalCards;
       
-      const prevIndex = (currentCardIndex - 1 + totalCards) % totalCards;
-      const nextIndex = (currentCardIndex + 1) % totalCards;
+      if (totalCards === 2) {
+        cards.forEach((card, idx) => {
+          card.classList.remove('active', 'prev', 'next', 'hidden');
+          card.setAttribute('aria-selected', 'false');
+          if (idx === currentCardIndex) {
+            card.classList.add('active');
+            card.setAttribute('aria-selected', 'true');
+            card.setAttribute('tabindex', '0');
+          } else {
+            // When card 0 is active, card 1 shows at next (+offset); when card 1 is active, card 0 shows at prev (-offset)
+            card.classList.add(currentCardIndex === 0 ? 'next' : 'prev');
+            card.setAttribute('tabindex', '0');
+          }
+        });
+      } else {
+        const prevIndex = (currentCardIndex - 1 + totalCards) % totalCards;
+        const nextIndex = (currentCardIndex + 1) % totalCards;
 
-      cards.forEach((card, idx) => {
-        card.classList.remove('active', 'prev', 'next', 'hidden');
-        card.setAttribute('aria-selected', 'false');
+        cards.forEach((card, idx) => {
+          card.classList.remove('active', 'prev', 'next', 'hidden');
+          card.setAttribute('aria-selected', 'false');
 
-        if (idx === currentCardIndex) {
-          card.classList.add('active');
-          card.setAttribute('aria-selected', 'true');
-          card.setAttribute('tabindex', '0');
-        } else if (idx === prevIndex) {
-          card.classList.add('prev');
-          card.setAttribute('tabindex', '0');
-        } else if (idx === nextIndex) {
-          card.classList.add('next');
-          card.setAttribute('tabindex', '0');
-        } else {
-          card.classList.add('hidden');
-          card.setAttribute('tabindex', '-1');
-        }
-      });
+          if (idx === currentCardIndex) {
+            card.classList.add('active');
+            card.setAttribute('aria-selected', 'true');
+            card.setAttribute('tabindex', '0');
+          } else if (idx === prevIndex) {
+            card.classList.add('prev');
+            card.setAttribute('tabindex', '0');
+          } else if (idx === nextIndex) {
+            card.classList.add('next');
+            card.setAttribute('tabindex', '0');
+          } else {
+            card.classList.add('hidden');
+            card.setAttribute('tabindex', '-1');
+          }
+        });
+      }
 
       dots.forEach((dot, idx) => {
         if (idx === currentCardIndex) {
