@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function openMobileNav() {
       mobileNav.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
       requestAnimationFrame(() => {
         mobileNav.classList.add('open');
         mobileMenuBtn.classList.add('active');
@@ -42,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function closeMobileNav() {
       mobileNav.classList.remove('open');
       mobileMenuBtn.classList.remove('active');
+      document.body.style.overflow = '';
       setTimeout(() => {
         if (!mobileNav.classList.contains('open')) mobileNav.style.display = 'none';
       }, 280);
